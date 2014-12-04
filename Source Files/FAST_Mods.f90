@@ -667,7 +667,7 @@ REAL(ReKi)                   :: YawBrMass                                       
 !yus Add variables for the mass properties of the two TLCDs.
 REAL(ReKi)                   :: TlcdXMass= 0.0                                 ! TlcdX mass. (Initialized to zero b/c not all models will use a Tlcd)
 REAL(ReKi)                   :: TlcdYMass = 0.0                                ! TlcdY mass. (Initialized to zero b/c not all models will use a Tlcd)
-!yus End of proposed change.    1-Dec-2014.
+!yus End of proposed change. 
 
 
 END MODULE MassInert
