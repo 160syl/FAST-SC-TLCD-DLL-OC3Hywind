@@ -207,26 +207,26 @@ REAL(ReKi)                   :: z2       (3)                                    
 REAL(ReKi)                   :: z3       (3)                                    ! Vector / direction z3 (= -yi from the IEC coord. system).
 
 
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal add in TMD coordinate systems
+!yus Start of proposed change.  1-Dec-2014.
+!yus add in TLCD coordinate systems
 
-REAL(ReKi)                   :: tmdnx1       (3)                                    ! Vector / direction tmdn1  (same as d coordinate system if TmdAngle = 0.)
-REAL(ReKi)                   :: tmdnx2       (3)                                    ! Vector / direction tmdn2 
-REAL(ReKi)                   :: tmdnx3       (3)                                    ! Vector / direction tmdn3 
+REAL(ReKi)                   :: tlcdnx1       (3)                                    ! Vector / direction tlcdn1  (same as d coordinate system if TlcdAngle = 0.)
+REAL(ReKi)                   :: tlcdnx2       (3)                                    ! Vector / direction tlcdn2 
+REAL(ReKi)                   :: tlcdnx3       (3)                                    ! Vector / direction tlcdn3 
 
-REAL(ReKi)                   :: tmdpx1       (3)                                    ! Vector / direction tmdp1  (same as a coordinate system if TmdAngle = 0.)
-REAL(ReKi)                   :: tmdpx2       (3)                                    ! Vector / direction tmdp2 
-REAL(ReKi)                   :: tmdpx3       (3)                                    ! Vector / direction tmdp3 
+REAL(ReKi)                   :: tlcdpx1       (3)                                    ! Vector / direction tlcdp1  (same as a coordinate system if TlcdAngle = 0.)
+REAL(ReKi)                   :: tlcdpx2       (3)                                    ! Vector / direction tlcdp2 
+REAL(ReKi)                   :: tlcdpx3       (3)                                    ! Vector / direction tlcdp3 
 
-REAL(ReKi)                   :: tmdny1       (3)                                    ! Vector / direction tmdn1  (same as d coordinate system if TmdAngle = 0.)
-REAL(ReKi)                   :: tmdny2       (3)                                    ! Vector / direction tmdn2 
-REAL(ReKi)                   :: tmdny3       (3)                                    ! Vector / direction tmdn3 
+REAL(ReKi)                   :: tlcdny1       (3)                                    ! Vector / direction tlcdn1  (same as d coordinate system if TlcdAngle = 0.)
+REAL(ReKi)                   :: tlcdny2       (3)                                    ! Vector / direction tlcdn2 
+REAL(ReKi)                   :: tlcdny3       (3)                                    ! Vector / direction tlcdn3 
 
-REAL(ReKi)                   :: tmdpy1       (3)                                    ! Vector / direction tmdp1  (same as a coordinate system if TmdAngle = 0.)
-REAL(ReKi)                   :: tmdpy2       (3)                                    ! Vector / direction tmdp2 
-REAL(ReKi)                   :: tmdpy3       (3)                                    ! Vector / direction tmdp3 
+REAL(ReKi)                   :: tlcdpy1       (3)                                    ! Vector / direction tlcdp1  (same as a coordinate system if TlcdAngle = 0.)
+REAL(ReKi)                   :: tlcdpy2       (3)                                    ! Vector / direction tlcdp2 
+REAL(ReKi)                   :: tlcdpy3       (3)                                    ! Vector / direction tlcdp3 
 
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
+!yus End of proposed change.
 
 END MODULE CoordSys
 !=======================================================================
@@ -270,7 +270,7 @@ INTEGER(4), PARAMETER        :: DOF_Sg   =  1                                   
 INTEGER(4), PARAMETER        :: DOF_Sw   =  2                                   ! DOF index for platform sway.
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal shift index upwards because of tmd
+!yus shift index upwards because of TLCD
 !remove6.10a INTEGER(4), PARAMETER        :: DOF_Teet = 22                      ! DOF index for rotor-teeter.
 
 INTEGER(4), PARAMETER        :: DOF_Teet = 24                                   ! DOF index for rotor-teeter.
@@ -345,7 +345,7 @@ INTEGER(4)                   :: NPTlcdXE                                        
 INTEGER(4), ALLOCATABLE      :: PTlcdXE      (:)                                 ! Array of DOF indices (pointers) that contribute to the QD2T-related linear accelerations of the TlcdX center of mass                                                          (point U) in the inertia frame, based on which DOFs are presently enabled.
 INTEGER(4)                   :: NPTlcdYE                                         ! Number of DOFs                  that contribute to the QD2T-related linear accelerations of the TlcdY center of mass                                                          (point U) in the inertia frame, based on which DOFs are presently enabled.
 INTEGER(4), ALLOCATABLE      :: PTlcdYE      (:)                                 ! Array of DOF indices (pointers) that contribute to the QD2T-related linear accelerations of the TlcdY center of mass   
-!mal End of proposed change.
+!yus End of proposed change.
 
 LOGICAL,    ALLOCATABLE      :: DOF_Flag (:)                                    ! Array which stores values of the feature flags for each DOF.
 
@@ -558,34 +558,30 @@ REAL(ReKi)                   :: TTDspSS                                         
 REAL(ReKi)                   :: TeetDefl  = 0.0                                 ! Initial or fixed teeter angle. (Initialized to zero b/c the 3-blader requires it to be zero)
 
 !yus Start of proposed change. 1-Dec-2014
-!yus Include initial deflections of the TLCDs
-REAL(ReKi)                   :: TlcdXDsp   = 0.0                                 ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdXDspInit = 0.0                               ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdXSprInit = 0.0                               ! Initial or fixed spring stiffness of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdXDampInit  = 0.0                             ! Initial or fixed damping of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
+!yus Include initial liquid displacement of the TLCDs
+REAL(ReKi)                   :: TlcdXDsp   = 0.0                                ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdXDspInit = 0.0                              ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
 
-REAL(ReKi)                   :: TlcdYDsp   = 0.0                                 ! Initial or fixed displacement of the transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdYDspInit = 0.0                               ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdYSprInit = 0.0                               ! Initial or fixed spring stiffness of the transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdYDampInit  = 0.0                             ! Initial or fixed damping of the transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdYDsp   = 0.0                                ! Initial or fixed displacement of the transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdYDspInit = 0.0                              ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
 !yus End of proposed change. 1-Dec-2014
 
 
-!mal Start of proposed change.  v6.20a-mal  23-July-2009.
-!mal initialize external force variables.
+!yus Start of proposed change.  1-Dec-2014
+!yus initialize external force variables.
 
-REAL(ReKi)                   :: TmdXFextInit  = 0.0                             ! Initial or fixed external force of the axial TMD. (Initialized to zero b/c not all models use a TMD)
-REAL(ReKi)                   :: TmdYFextInit  = 0.0                             ! Initial or fixed external force of the side-side TMD. (Initialized to zero b/c not all models use a TMD)
+REAL(ReKi)                   :: TlcdXHdLossInit = 0.0                           ! Initial or fixed head-loss coefficient of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdYHdLossInit = 0.0                           ! Initial or fixed head-loss coefficient of the transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
 
-!mal End of proposed change.  v6.20a-mal  23-July-2009.
+!yus End of proposed change.
 
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal initialize orientation angle
+!yus Start of proposed change. 1-Dec-2014
+!yus initialize orientation angle
 
-REAL(ReKi)                   :: TmdXAngleInit  = 0.0                             ! Initial or fixed TmdX rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a TMD)
-REAL(ReKi)                   :: TmdYAngleInit  = 0.0                             ! Initial or fixed TmdY rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a TMD)
+!REAL(ReKi)                   :: TlcdXAngleInit  = 0.0                             ! Initial or fixed TmdX rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a TMD)
+!REAL(ReKi)                   :: TlcdYAngleInit  = 0.0                             ! Initial or fixed TmdY rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a TMD)
 
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
+!yus End of proposed change.
 
 LOGICAL,    ALLOCATABLE      :: DOF_FlagInit(:)                                 ! Array which stores initial values of the feature flags for each DOF (at the start of the simulation).
 
@@ -667,11 +663,11 @@ REAL(ReKi)                   :: TurbMass                                        
 REAL(ReKi)                   :: TwrMass                                         ! Mass of tower.
 REAL(ReKi)                   :: TwrTpMass                                       ! Tower-top mass (rotor + nacelle).
 REAL(ReKi)                   :: YawBrMass                                       ! Yaw bearing mass.
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal Add variables for the mass properties of the two TMDs.
-REAL(ReKi)                   :: TmdXMass   = 0.0                                ! TmdX mass. (Initialized to zero b/c not all models will use a Tmd)
-REAL(ReKi)                   :: TmdYMass   = 0.0                                ! TmdY mass. (Initialized to zero b/c not all models will use a Tmd)
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus Start of proposed change.  1-Dec-2014.
+!yus Add variables for the mass properties of the two TLCDs.
+REAL(ReKi)                   :: TlcdXMass= 0.0                                 ! TlcdX mass. (Initialized to zero b/c not all models will use a Tlcd)
+REAL(ReKi)                   :: TlcdYMass = 0.0                                ! TlcdY mass. (Initialized to zero b/c not all models will use a Tlcd)
+!yus End of proposed change.    1-Dec-2014.
 
 
 END MODULE MassInert
@@ -1937,71 +1933,84 @@ USE                             NWTC_Library
    INTEGER, PARAMETER             :: QD2_Y     =  986
 
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal Add output parameters for the position, velocity, and acceleration of the two TMDs.
-!mal The TMDs are defined so that they can only move in one direction, so there are only three output variable for each.  
+!yus Start of proposed change. 1-Dec-2014.
+!yus Add output parameters for the position, velocity, and acceleration of the mass center of two TLCDs.
+!yus The TLCDs are defined so that they can only move in one direction, so there are only three output variable for each.  
 
-   ! TMDs:
+   ! TLCDs:
 
-INTEGER(4), PARAMETER        :: TmdXDxn              = 987
-INTEGER(4), PARAMETER        :: TmdXDyn              = 988
-INTEGER(4), PARAMETER        :: TmdXDzn              = 989
+INTEGER(4), PARAMETER        :: TlcdXDxn              = 987
+INTEGER(4), PARAMETER        :: TlcdXDyn              = 988
+INTEGER(4), PARAMETER        :: TlcdXDzn              = 989
 
-INTEGER(4), PARAMETER        :: TmdXVxn              = 990
-INTEGER(4), PARAMETER        :: TmdXVyn              = 991
-INTEGER(4), PARAMETER        :: TmdXVzn              = 992
+INTEGER(4), PARAMETER        :: TlcdXVxn              = 990
+INTEGER(4), PARAMETER        :: TlcdXVyn              = 991
+INTEGER(4), PARAMETER        :: TlcdXVzn              = 992
 
-INTEGER(4), PARAMETER        :: TmdXAxn              = 993
-INTEGER(4), PARAMETER        :: TmdXAyn              = 994
-INTEGER(4), PARAMETER        :: TmdXAzn              = 995
+INTEGER(4), PARAMETER        :: TlcdXAxn              = 993
+INTEGER(4), PARAMETER        :: TlcdXAyn              = 994
+INTEGER(4), PARAMETER        :: TlcdXAzn              = 995
 
-INTEGER(4), PARAMETER        :: TmdYDxn              = 996
-INTEGER(4), PARAMETER        :: TmdYDyn              = 997
-INTEGER(4), PARAMETER        :: TmdYDzn              = 998
+INTEGER(4), PARAMETER        :: TlcdYDxn              = 996
+INTEGER(4), PARAMETER        :: TlcdYDyn              = 997
+INTEGER(4), PARAMETER        :: TlcdYDzn              = 998
 
-INTEGER(4), PARAMETER        :: TmdYVxn              = 999
-INTEGER(4), PARAMETER        :: TmdYVyn              =1000
-INTEGER(4), PARAMETER        :: TmdYVzn              =1001
+INTEGER(4), PARAMETER        :: TlcdYVxn              = 999
+INTEGER(4), PARAMETER        :: TlcdYVyn              =1000
+INTEGER(4), PARAMETER        :: TlcdYVzn              =1001
 
-INTEGER(4), PARAMETER        :: TmdYAxn              =1002
-INTEGER(4), PARAMETER        :: TmdYAyn              =1003
-INTEGER(4), PARAMETER        :: TmdYAzn              =1004
+INTEGER(4), PARAMETER        :: TlcdYAxn              =1002
+INTEGER(4), PARAMETER        :: TlcdYAyn              =1003
+INTEGER(4), PARAMETER        :: TlcdYAzn              =1004
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
-
-
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal add additional output parameters for the tmd if it is in the platform instead of nacelle
-
-INTEGER(4), PARAMETER        :: TmdXDxt              =1005
-INTEGER(4), PARAMETER        :: TmdXDyt              =1006
-INTEGER(4), PARAMETER        :: TmdXDzt              =1007
-
-INTEGER(4), PARAMETER        :: TmdXVxt              =1008
-INTEGER(4), PARAMETER        :: TmdXVyt              =1009
-INTEGER(4), PARAMETER        :: TmdXVzt              =1010
-
-INTEGER(4), PARAMETER        :: TmdXAxt              =1011
-INTEGER(4), PARAMETER        :: TmdXAyt              =1012
-INTEGER(4), PARAMETER        :: TmdXAzt              =1013
-
-INTEGER(4), PARAMETER        :: TmdYDxt              =1014
-INTEGER(4), PARAMETER        :: TmdYDyt              =1015
-INTEGER(4), PARAMETER        :: TmdYDzt              =1016
-
-INTEGER(4), PARAMETER        :: TmdYVxt              =1017
-INTEGER(4), PARAMETER        :: TmdYVyt              =1018
-INTEGER(4), PARAMETER        :: TmdYVzt              =1019
-
-INTEGER(4), PARAMETER        :: TmdYAxt              =1020
-INTEGER(4), PARAMETER        :: TmdYAyt              =1021
-INTEGER(4), PARAMETER        :: TmdYAzt              =1022
+!yus End of proposed change. 
 
 
+!yus Start of proposed change.  1-Dec-2014.
+!yus add additional output parameters for the TLCD if it is in the platform instead of nacelle
+
+INTEGER(4), PARAMETER        :: TlcdXDxt              =1005
+INTEGER(4), PARAMETER        :: TlcdXDyt              =1006
+INTEGER(4), PARAMETER        :: TlcdXDzt              =1007
+
+INTEGER(4), PARAMETER        :: TlcdXVxt              =1008
+INTEGER(4), PARAMETER        :: TlcdXVyt              =1009
+INTEGER(4), PARAMETER        :: TlcdXVzt              =1010
+
+INTEGER(4), PARAMETER        :: TlcdXAxt              =1011
+INTEGER(4), PARAMETER        :: TlcdXAyt              =1012
+INTEGER(4), PARAMETER        :: TlcdXAzt              =1013
+
+INTEGER(4), PARAMETER        :: TlcdYDxt              =1014
+INTEGER(4), PARAMETER        :: TlcdYDyt              =1015
+INTEGER(4), PARAMETER        :: TlcdYDzt              =1016
+
+INTEGER(4), PARAMETER        :: TlcdYVxt              =1017
+INTEGER(4), PARAMETER        :: TlcdYVyt              =1018
+INTEGER(4), PARAMETER        :: TlcdYVzt              =1019
+
+INTEGER(4), PARAMETER        :: TlcdYAxt              =1020
+INTEGER(4), PARAMETER        :: TlcdYAyt              =1021
+INTEGER(4), PARAMETER        :: TlcdYAzt              =1022
+
+!yus End of proposed change.
+
+
+!yus Start of proposed change.  1-Dec-2014.
+!yus Add additional output parameters for the liquid relative displacement in the vertical columns
+! For nacelle
+INTEGER(4), PARAMETER        :: TlcdXColDn             = 1023
+INTEGER(4), PARAMETER        :: TlcdXColVn             = 1024
+INTEGER(4), PARAMETER        :: TlcdXColAn             = 1025
+
+! For platform
+INTEGER(4), PARAMETER        :: TlcdXColDt             = 1026
+INTEGER(4), PARAMETER        :: TlcdXColVt             = 1027
+INTEGER(4), PARAMETER        :: TlcdXColAt             = 1028
    
      ! The maximum number of output channels which can be output by the code.
-   INTEGER, PARAMETER             :: MaxOutPts = 1022
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
+   INTEGER, PARAMETER        :: MaxOutPts            =1028
+!yus End of proposed change. 
 
 
 !End of code generated by Matlab script
@@ -2412,46 +2421,46 @@ REAL(ReKi)                   :: TeetAng                                         
 REAL(ReKi)                   :: TeetAngVel                                      ! Angular velocity of the teeter motion.
 
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal Include kinematic variables for the two TMDs including positions vectors 
-!mal and partial velocities. 
-REAL(ReKi), ALLOCATABLE      :: PLinVelETmdX(:,:,:)                             ! Partial linear velocity (and its 1st time derivative) of the axial TMD                                                        
-REAL(ReKi), ALLOCATABLE      :: PLinVelETmdY(:,:,:)                             ! Partial linear velocity (and its 1st time derivative) of the transverse TMD  
+!yus Start of proposed change. 1-Dec-2014.
+!yus Include kinematic variables for the two TLCDs including positions vectors 
+!yus and partial velocities. 
+REAL(ReKi), ALLOCATABLE      :: PLinVelETlcdX(:,:,:)                             ! Partial linear velocity (and its 1st time derivative) of the axial Tlcd                                                       
+REAL(ReKi), ALLOCATABLE      :: PLinVelETlcdY(:,:,:)                             ! Partial linear velocity (and its 1st time derivative) of the transverse Tlcd 
 
-REAL(ReKi)                   :: LinVelETmdX  (3)                                ! Linear velocity of TmdX in the inertia frame.
-REAL(ReKi)                   :: LinVelETmdY  (3)                                ! Linear velocity of TmdY in the inertia frame.  
+REAL(ReKi)                   :: LinVelETlcdX  (3)                                ! Linear velocity of TlcdX in the inertia frame.
+REAL(ReKi)                   :: LinVelETlcdY  (3)                                ! Linear velocity of TlcdY in the inertia frame.  
 
-REAL(ReKi)                   :: LinAccETmdXt  (3)                               ! Portion of the linear acceleration of the TMDX in the inertia frame (body E for earth) associated with everything but the QD2T()'s.
-REAL(ReKi)                   :: LinAccETmdYt  (3)                               ! Portion of the linear acceleration of the TMDY in the inertia frame (body E for earth) associated with everything but the QD2T()'s.  
+REAL(ReKi)                   :: LinAccETlcdXt  (3)                               ! Portion of the linear acceleration of the TlcdX in the inertia frame (body E for earth) associated with everything but the QD2T()'s.
+REAL(ReKi)                   :: LinAccETlcdYt  (3)                               ! Portion of the linear acceleration of the TlcdY in the inertia frame (body E for earth) associated with everything but the QD2T()'s.  
 
-REAL(ReKi)                   :: FrcOTmdXt(3)                                    ! Portion of the force at the nacelle TmdX reference point   (point TmdXRef   ) due to the TmdX associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PFrcOTmdX(:,:)                                  ! Partial force at the nacelle TmdX reference point   (point TmdXRef   ) due to the TmdX.
-REAL(ReKi)                   :: MomNOTmdXt(3)                             ! Portion of the moment at the nacelle (body N) / TmdX reference point       (point TmdXRef  ) due to the TmdX associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PMomNOTmdX(:,:)                           ! Partial moment at the nacelle (body N) / TmdX reference point       (point TmdXRef  ) due the TmdX.
+REAL(ReKi)                   :: FrcOTlcdXt(3)                                    ! Portion of the force at the nacelle TlcdX reference point   (point TlcdXRef   ) due to the TlcdX associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PFrcOTlcdX(:,:)                                  ! Partial force at the nacelle TlcdX reference point   (point TlcdXRef   ) due to the TlcdX.
+REAL(ReKi)                   :: MomNOTlcdXt(3)                             ! Portion of the moment at the nacelle (body N) / TlcdX reference point       (point TlcdXRef  ) due to the TlcdX associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PMomNOTlcdX(:,:)                           ! Partial moment at the nacelle (body N) / TlcdX reference point       (point TlcdXRef  ) due the TlcdX.
 
-REAL(ReKi)                   :: FrcOTmdYt(3)                              ! Portion of the force at TmdY reference point   (point TmdYRef   ) due to the TmdY associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PFrcOTmdY(:,:)                            ! Partial force at the TmdY reference point   (point TmdYRef   ) due to the TmdY.
-REAL(ReKi)                   :: MomNOTmdYt(3)                             ! Portion of the moment at the nacelle (body N) / TmdY reference point       (point TmdYRef  ) due to the TmdY associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PMomNOTmdY(:,:)                           ! Partial moment at the nacelle (body N) / TmdY reference point       (point TmdYRef  ) due the TmdY.
+REAL(ReKi)                   :: FrcOTlcdYt(3)                              ! Portion of the force at TlcdY reference point   (point TlcdYRef   ) due to the TlcdY associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PFrcOTlcdY(:,:)                            ! Partial force at the TlcdY reference point   (point TlcdYRef   ) due to the TlcdY.
+REAL(ReKi)                   :: MomNOTlcdYt(3)                             ! Portion of the moment at the nacelle (body N) / TlcdY reference point       (point TlcdYRef  ) due to the TlcdY associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PMomNOTlcdY(:,:)                           ! Partial moment at the nacelle (body N) / TlcdY reference point       (point TlcdYRef  ) due the TlcdY.
 
                                                     
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.
 
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal add kinematic variables in case tmd is in the platform and not the nacelle
+!yus Start of proposed change. 1-Dec-2014.
+!yus add kinematic variables in case TLCD is in the platform and not the nacelle
 
-REAL(ReKi)                   :: FrcZTmdXt(3)                                    ! Portion of the force at the platform TmdX reference point   (point TmdXRef   ) due to the TmdX associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PFrcZTmdX(:,:)                                  ! Partial force at the platform TmdX reference point   (point TmdXRef   ) due to the TmdX.
-REAL(ReKi)                   :: MomXZTmdXt(3)                             ! Portion of the moment at the platform (body Z) / platform TmdX reference point (point TmdXRef  ) due to the TmdX associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PMomXZTmdX(:,:)                           ! Partial moment at the platform (body Z) / platform TmdX reference point (point TmdXRef  ) due the TmdX.
+REAL(ReKi)                   :: FrcZTlcdXt(3)                                    ! Portion of the force at the platform TlcdX reference point   (point TlcdXRef   ) due to the TlcdX associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PFrcZTlcdX(:,:)                                  ! Partial force at the platform TlcdX reference point   (point TlcdXRef   ) due to the TlcdX.
+REAL(ReKi)                   :: MomXZTlcdXt(3)                             ! Portion of the moment at the platform (body Z) / platform TlcdX reference point (point TlcdXRef  ) due to the TlcdX associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PMomXZTlcdX(:,:)                           ! Partial moment at the platform (body Z) / platform TlcdX reference point (point TlcdXRef  ) due the TlcdX.
 
-REAL(ReKi)                   :: FrcZTmdYt(3)                              ! Portion of the force at the platform TmdY reference point   (point TmdYRef   ) due to the TmdY associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PFrcZTmdY(:,:)                            ! Partial force at the platform TmdY reference point   (point TmdYRef   ) due to the TmdY.
-REAL(ReKi)                   :: MomXZTmdYt(3)                             ! Portion of the moment at the platform (body Z) / platform TmdY reference point       (point TmdYRef  ) due to the TmdY associated with everything but the QD2T()'s.
-REAL(ReKi), ALLOCATABLE      :: PMomXZTmdY(:,:)                           ! Partial moment at the platform (body Z) / platform TmdY reference point       (point TmdYRef  ) due the TmdY.
+REAL(ReKi)                   :: FrcZTlcdYt(3)                              ! Portion of the force at the platform TlcdY reference point   (point TlcdYRef   ) due to the TlcdY associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PFrcZTlcdY(:,:)                            ! Partial force at the platform TlcdY reference point   (point TlcdYRef   ) due to the TlcdY.
+REAL(ReKi)                   :: MomXZTlcdYt(3)                             ! Portion of the moment at the platform (body Z) / platform TlcdY reference point       (point TlcdYRef  ) due to the TlcdY associated with everything but the QD2T()'s.
+REAL(ReKi), ALLOCATABLE      :: PMomXZTlcdY(:,:)                           ! Partial moment at the platform (body Z) / platform TlcdY reference point       (point TlcdYRef  ) due the TlcdY.
 
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
+!yus End of proposed change.
 
 END MODULE RtHndSid
 !=======================================================================
@@ -2570,79 +2579,79 @@ REAL(ReKi)                   :: TpBrDT                                          
 
 END MODULE TipBrakes
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal Add a module for the TMD properties
+!yus Start of proposed change.  1-Dec-2014.
+!yus Add a module for the TLCD properties
 !=======================================================================
-MODULE TMD
+MODULE TLCD
 
 
-   ! This MODULE stores input variables for TMDs.
+   ! This MODULE stores input variables for TLCDs.
 
 
 USE                             Precision
 
-REAL(ReKi)                   :: TmdXRefxnt                                        ! Downwind distance from tower-top to TmdX CM.
-REAL(ReKi)                   :: TmdXRefynt                                        ! Lateral  distance from tower-top to TmdX CM.
-REAL(ReKi)                   :: TmdXRefznt                                        ! Vertical distance from tower-top to TmdX CM.
-REAL(ReKi)                   :: TmdYRefxnt                                        ! Downwind distance from tower-top to TmdY CM.
-REAL(ReKi)                   :: TmdYRefynt                                        ! Lateral  distance from tower-top to TmdY CM.
-REAL(ReKi)                   :: TmdYRefznt                                        ! Vertical distance from tower-top to TmdY CM.
+REAL(ReKi)                   :: TlcdXRefxnt                                        ! Downwind distance from tower-top to TlcdX CM.
+REAL(ReKi)                   :: TlcdXRefynt                                        ! Lateral  distance from tower-top to TlcdX CM.
+REAL(ReKi)                   :: TlcdXRefznt                                        ! Vertical distance from tower-top to TlcdX CM.
+REAL(ReKi)                   :: TlcdYRefxnt                                        ! Downwind distance from tower-top to TlcdY CM.
+REAL(ReKi)                   :: TlcdYRefynt                                        ! Lateral  distance from tower-top to TlcdY CM.
+REAL(ReKi)                   :: TlcdYRefznt                                        ! Vertical distance from tower-top to TlcdY CM.
 
-REAL(ReKi)                   :: TmdXSpr                                         ! Initial and current TmdX spring stiffness.
-REAL(ReKi)                   :: TmdXDamp                                        ! Initial and current TmdX damping.
-REAL(ReKi)                   :: TmdXNeut                                        ! Neutral TmdX position.
+REAL(ReKi)                   :: TlcdXSpr                                         ! Initial and current TlcdX spring stiffness.
+REAL(ReKi)                   :: TlcdXDamp                                        ! Initial and current TlcdX damping.
+REAL(ReKi)                   :: TlcdXNeut                                        ! Neutral TlcdX position.
 
 !mal Start of proposed change.  v6.20a-mal  23-July-2009.
 !mal don't need these anymore, going to use force command for active control.
-!remove6.20a  REAL(ReKi)                   :: TmdXRateNeut = 0.0                              ! Neutral TmdX rate.
-REAL(ReKi)                   :: TmdXFext                                        ! Commanded TmdX external force from user-defined routines, m.
+!remove6.20a  REAL(ReKi)                   :: TlcdXRateNeut = 0.0                              ! Neutral TlcdX rate.
+REAL(ReKi)                   :: TlcdXFext                                        ! Commanded TlcdX external force from user-defined routines, m.
 !mal End of proposed change.  v6.20a-mal  23-July-2009.
 
 
-REAL(ReKi)                   :: TmdYSpr                                         ! Initial and current TmdY spring stiffness.
-REAL(ReKi)                   :: TmdYDamp                                        ! Initial and current TmdY damping.
-REAL(ReKi)                   :: TmdYNeut                                        ! Neutral TmdY position.
+REAL(ReKi)                   :: TlcdYSpr                                         ! Initial and current TlcdY spring stiffness.
+REAL(ReKi)                   :: TlcdYDamp                                        ! Initial and current TlcdY damping.
+REAL(ReKi)                   :: TlcdYNeut                                        ! Neutral TlcdY position.
 
 !mal Start of proposed change.  v6.20a-mal  23-July-2009.
 !mal don't need these anymore, going to use force command for active control.
-!remove6.20a  REAL(ReKi)                   :: TmdYRateNeut = 0.0                              ! Neutral TmdY rate.
-REAL(ReKi)                   :: TmdYFext                                        ! Commanded TmdY external force from user-defined routines, m.
+!remove6.20a  REAL(ReKi)                   :: TlcdYRateNeut = 0.0                              ! Neutral TlcdY rate.
+REAL(ReKi)                   :: TlcdYFext                                        ! Commanded TlcdY external force from user-defined routines, m.
 !mal End of proposed change.  v6.20a-mal  23-July-2009.
 
 !mal Start of proposed change.  v6.30a-mal  29-July-2009.
 !mal add in stop variables
 
-REAL(ReKi)                   :: TmdXSDamp                                       ! TmdX stop damping constant. 
-REAL(ReKi)                   :: TmdXSSpr                                        ! TmdX stop spring constant. 
-REAL(ReKi)                   :: TmdXDWSP                                        ! TmdX stop downwind stop position. 
-REAL(ReKi)                   :: TmdXUWSP                                        ! TmdX stop upwind stop position. 
+REAL(ReKi)                   :: TlcdXSDamp                                       ! TlcdX stop damping constant. 
+REAL(ReKi)                   :: TlcdXSSpr                                        ! TlcdX stop spring constant. 
+REAL(ReKi)                   :: TlcdXDWSP                                        ! TlcdX stop downwind stop position. 
+REAL(ReKi)                   :: TlcdXUWSP                                        ! TlcdX stop upwind stop position. 
 
-REAL(ReKi)                   :: TmdYSDamp                                       ! TmdY stop damping constant. 
-REAL(ReKi)                   :: TmdYSSpr                                        ! TmdY stop spring constant. 
-REAL(ReKi)                   :: TmdYPLSP                                        ! TmdY stop positive-lateral stop position. 
-REAL(ReKi)                   :: TmdYNLSP                                        ! TmdY stop negative-lateral stop position. 
+REAL(ReKi)                   :: TlcdYSDamp                                       ! TlcdY stop damping constant. 
+REAL(ReKi)                   :: TlcdYSSpr                                        ! TlcdY stop spring constant. 
+REAL(ReKi)                   :: TlcdYPLSP                                        ! TlcdY stop positive-lateral stop position. 
+REAL(ReKi)                   :: TlcdYNLSP                                        ! TlcdY stop negative-lateral stop position. 
 
 !mal End of proposed change.  v6.30a-mal  29-July-2009.
 
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal new variables which indicate if tmd is in the nacelle or the platform
+!mal new variables which indicate if Tlcd is in the nacelle or the platform
 
-INTEGER(4)                   :: TmdXLoc                                         ! TmdX location {1: nacelle, 2: platform} 
-INTEGER(4)                   :: TmdYLoc                                         ! TmdY location {1: nacelle, 2: platform} 
+INTEGER(4)                   :: TlcdXLoc                                         ! TlcdX location {1: nacelle, 2: platform} 
+INTEGER(4)                   :: TlcdYLoc                                         ! TlcdY location {1: nacelle, 2: platform} 
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
 
 !mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal new variables that descrive TMD angular orientation about vertical axis
+!mal new variables that descrive Tlcd angular orientation about vertical axis
 
-REAL(ReKi)                   :: TmdXAngle                                       ! TmdX rotation angle about vertical axis. 
-REAL(ReKi)                   :: TmdYAngle                                       ! TmdY rotation angle about vertical axis. 
+REAL(ReKi)                   :: TlcdXAngle                                       ! TlcdX rotation angle about vertical axis. 
+REAL(ReKi)                   :: TlcdYAngle                                       ! TlcdY rotation angle about vertical axis. 
 
 !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
 
-END MODULE TMD
+END MODULE Tlcd
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 !=======================================================================
