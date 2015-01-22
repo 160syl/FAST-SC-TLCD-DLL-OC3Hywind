@@ -24,11 +24,11 @@ USE                             Tower
 USE                             TurbConf
 USE                             TurbCont
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal also use the TMD module
-USE                             TMD
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus also use the Tlcd module
+USE                             Tlcd
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 USE                             NOISE !AllocNoise
 
@@ -309,20 +309,20 @@ IF (.NOT. ALLOCATED( PYE ) ) THEN
    ENDIF
 ENDIF
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal also allocate for TMD variables
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus also allocate for Tlcd variables
 
-ALLOCATE ( PTmdXE(NDOF) , STAT=Sttus )
+ALLOCATE ( PTlcdXE(NDOF) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PTmdXE array.' )
+   CALL Abort ( ' Error allocating memory for the PTlcdXE array.' )
 ENDIF
 
-ALLOCATE ( PTmdYE(NDOF) , STAT=Sttus )
+ALLOCATE ( PTlcdYE(NDOF) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PTmdYE array.' )
+   CALL Abort ( ' Error allocating memory for the PTlcdYE array.' )
 ENDIF
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 
 
@@ -827,66 +827,65 @@ IF (.NOT. ALLOCATED( PLinVelEO ) ) THEN
    ENDIF
 ENDIF
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal add partial velocity, forces, and moments of the TMDx for allocation
+!yus Start of proposed change. v7.01  1-Dec-2014.
+!yus add partial velocity, forces, and moments of the Tlcdx for allocation
 
-ALLOCATE ( PLinVelETmdX(NDOF,0:1,3) , STAT=Sttus )
+ALLOCATE ( PLinVelETlcdX(NDOF,0:1,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PLinVelETmdX array.' )
+   CALL Abort ( ' Error allocating memory for the PLinVelETlcdX array.' )
 ENDIF
 
-ALLOCATE ( PLinVelETmdY(NDOF,0:1,3) , STAT=Sttus )
+ALLOCATE ( PLinVelETlcdY(NDOF,0:1,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PLinVelETmdY array.' )
+   CALL Abort ( ' Error allocating memory for the PLinVelETlcdY array.' )
 ENDIF
 
-ALLOCATE ( PFrcOTmdX(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PFrcOTlcdX(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PFrcOTmdX array.' )
+   CALL Abort ( ' Error allocating memory for the PFrcOTlcdX array.' )
 ENDIF
 
-ALLOCATE ( PMomNOTmdX(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PMomNOTlcdX(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PMomNOTmdX array.' )
+   CALL Abort ( ' Error allocating memory for the PMomNOTlcdX array.' )
 ENDIF
 
-ALLOCATE ( PFrcOTmdY(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PFrcOTlcdY(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PFrcOTmdY array.' )
+   CALL Abort ( ' Error allocating memory for the PFrcOTlcdY array.' )
 ENDIF
 
-ALLOCATE ( PMomNOTmdY(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PMomNOTlcdY(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PMomNOTmdY array.' )
+   CALL Abort ( ' Error allocating memory for the PMomNOTlcdY array.' )
 ENDIF
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal add partial forces if tmds are in platform
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus add partial forces if Tlcds are in platform
 
-ALLOCATE ( PFrcZTmdX(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PFrcZTlcdX(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PFrcZTmdX array.' )
+   CALL Abort ( ' Error allocating memory for the PFrcZTlcdX array.' )
 ENDIF
 
-ALLOCATE ( PMomXZTmdX(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PMomXZTlcdX(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PMomXZTmdX array.' )
+   CALL Abort ( ' Error allocating memory for the PMomXZTlcdX array.' )
 ENDIF
 
-ALLOCATE ( PFrcZTmdY(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PFrcZTlcdY(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PFrcZTmdY array.' )
+   CALL Abort ( ' Error allocating memory for the PFrcZTlcdY array.' )
 ENDIF
 
-ALLOCATE ( PMomXZTmdY(NDOF,3) , STAT=Sttus )
+ALLOCATE ( PMomXZTlcdY(NDOF,3) , STAT=Sttus )
 IF ( Sttus /= 0 )  THEN
-   CALL Abort ( ' Error allocating memory for the PMomXZTmdY array.' )
+   CALL Abort ( ' Error allocating memory for the PMomXZTlcdY array.' )
 ENDIF
 
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
-
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 IF (.NOT. ALLOCATED( PLinVelEP ) ) THEN
    ALLOCATE ( PLinVelEP(NDOF,0:1,3) , STAT=Sttus )
@@ -1170,11 +1169,11 @@ USE                             Waves, ONLY:WaveElevation, WaveVelocity, WaveAcc
 
 USE                             AeroDyn
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal also use the TMD module
-USE                             TMD
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus also use the Tlcd module
+USE                             Tlcd
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 IMPLICIT                        NONE
 
@@ -1220,12 +1219,12 @@ REAL(ReKi)                   :: rSTipPSTip(3)                                   
 REAL(ReKi)                   :: TmpVec    (3)                                   ! A temporary vector used in various computations.
 REAL(ReKi)                   :: TmpVec2   (3)                                   ! A temporary vector.
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal linear acceleration output variables for the TMDs
-REAL(ReKi)                   :: LinAccETmdX  (3)                                ! Total linear acceleration of the TmdX in the inertia frame (body E for earth).
-REAL(ReKi)                   :: LinAccETmdY  (3)                                ! Total linear acceleration of the TmdY in the inertia frame (body E for earth).
+!yus Start of proposed change. v7.01  1-Dec-2014.
+!yus linear acceleration output variables for the Tlcds
+REAL(ReKi)                   :: LinAccETlcdX  (3)                                ! Total linear acceleration of the TlcdX in the inertia frame (body E for earth).
+REAL(ReKi)                   :: LinAccETlcdY  (3)                                ! Total linear acceleration of the TlcdY in the inertia frame (body E for earth).
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 INTEGER                      :: I                                               ! Generic index
 INTEGER                      :: J                                               ! Loops through nodes / elements.
@@ -1264,11 +1263,11 @@ MomNTail   = MomNTailt
 MomX0Trb   = MomX0Trbt
 MXHydro    = MXHydrot
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal 
-LinAccETmdX   = LinAccETmdXt
-LinAccETmdY   = LinAccETmdYt
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus 
+LinAccETlcdX   = LinAccETlcdXt
+LinAccETlcdY   = LinAccETlcdYt
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 DO I = 1,NActvDOF ! Loop through all active (enabled) DOFs
    AngAccEB   = AngAccEB   + PAngVelEB  (SrtPS(I),0,:)*QD2T(SrtPS(I))
@@ -1284,11 +1283,11 @@ DO I = 1,NActvDOF ! Loop through all active (enabled) DOFs
    MomNTail   = MomNTail   + PMomNTail  (SrtPS(I),  :)*QD2T(SrtPS(I))
    MomX0Trb   = MomX0Trb   + PMomX0Trb  (SrtPS(I),  :)*QD2T(SrtPS(I))
    
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal also calculate for the TMDs
-   LinAccETmdX   = LinAccETmdX   + PLinVelETmdX  (SrtPS(I),0,:)*QD2T(SrtPS(I))
-   LinAccETmdY   = LinAccETmdY   + PLinVelETmdY  (SrtPS(I),0,:)*QD2T(SrtPS(I))
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus also calculate for the Tlcds
+   LinAccETlcdX   = LinAccETlcdX   + PLinVelETlcdX  (SrtPS(I),0,:)*QD2T(SrtPS(I))
+   LinAccETlcdY   = LinAccETlcdY   + PLinVelETlcdY  (SrtPS(I),0,:)*QD2T(SrtPS(I))
+!yus End of proposed change. v7.01  1-Dec-2014.
 
 ENDDO             ! I - All active (enabled) DOFs
 DO I = 1,NPYE     ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the platform center of mass (point Y)
@@ -1831,183 +1830,6 @@ AllOuts( TwrBsMyt) = -DOT_PRODUCT( MomX0Trb, a3 )
 AllOuts( TwrBsMzt) =  DOT_PRODUCT( MomX0Trb, a2 )
 
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal if statement needed to calculate outputs depending on if tmds are in nacelle or platform, also change dotprod to DOT_PRODUCT
-
-SELECT CASE ( TmdXLoc )  ! Which yaw control mode are we using?
-
-   CASE ( 1 )              ! tmdx in nacelle
-
-AllOuts(TmdXDxn)   =  QT  (DOF_TmdX)
-AllOuts(TmdXDyn)   =  0
-AllOuts(TmdXDzn)   =  0
-
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal change coordinate system
-
-!mal AllOuts(TmdXVxn)   =  DOT_PRODUCT( LinVelETmdX, d1 )
-!mal AllOuts(TmdXVyn)   = -DOT_PRODUCT( LinVelETmdX, d3 )
-!mal AllOuts(TmdXVzn)   =  DOT_PRODUCT( LinVelETmdX, d2 )
-
-!mal AllOuts(TmdXAxn)   =  DOT_PRODUCT( LinAccETmdX, d1 )
-!mal AllOuts(TmdXAyn)   = -DOT_PRODUCT( LinAccETmdX, d3 )
-!mal AllOuts(TmdXAzn)   =  DOT_PRODUCT( LinAccETmdX, d2 )
-
-AllOuts(TmdXVxn)   =  DOT_PRODUCT( LinVelETmdX, tmdnx1 )
-AllOuts(TmdXVyn)   = -DOT_PRODUCT( LinVelETmdX, tmdnx3 )
-AllOuts(TmdXVzn)   =  DOT_PRODUCT( LinVelETmdX, tmdnx2 )
-
-AllOuts(TmdXAxn)   =  DOT_PRODUCT( LinAccETmdX, tmdnx1 )
-AllOuts(TmdXAyn)   = -DOT_PRODUCT( LinAccETmdX, tmdnx3 )
-AllOuts(TmdXAzn)   =  DOT_PRODUCT( LinAccETmdX, tmdnx2 )
-
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
-
-AllOuts(TmdXDxt)   =  0
-AllOuts(TmdXDyt)   =  0
-AllOuts(TmdXDzt)   =  0
-
-AllOuts(TmdXVxt)   =  0
-AllOuts(TmdXVyt)   =  0
-AllOuts(TmdXVzt)   =  0
-
-AllOuts(TmdXAxt)   =  0
-AllOuts(TmdXAyt)   =  0
-AllOuts(TmdXAzt)   =  0
-
-
-   CASE ( 2 )              ! tmdx in platform
-
-
-AllOuts(TmdXDxn)   =  0
-AllOuts(TmdXDyn)   =  0
-AllOuts(TmdXDzn)   =  0
-
-AllOuts(TmdXVxn)   =  0
-AllOuts(TmdXVyn)   =  0
-AllOuts(TmdXVzn)   =  0
-
-AllOuts(TmdXAxn)   =  0
-AllOuts(TmdXAyn)   =  0
-AllOuts(TmdXAzn)   =  0
-
-
-AllOuts(TmdXDxt)   =  QT  (DOF_TmdX)
-AllOuts(TmdXDyt)   =  0
-AllOuts(TmdXDzt)   =  0
-
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal change coordinate system
-
-!mal AllOuts(TmdXVxt)   =  DOT_PRODUCT( LinVelETmdX, a1 )
-!mal AllOuts(TmdXVyt)   = -DOT_PRODUCT( LinVelETmdX, a3 )
-!mal AllOuts(TmdXVzt)   =  DOT_PRODUCT( LinVelETmdX, a2 )
-
-!mal AllOuts(TmdXAxt)   =  DOT_PRODUCT( LinAccETmdX, a1 )
-!mal AllOuts(TmdXAyt)   = -DOT_PRODUCT( LinAccETmdX, a3 )
-!mal AllOuts(TmdXAzt)   =  DOT_PRODUCT( LinAccETmdX, a2 )
-
-AllOuts(TmdXVxt)   =  DOT_PRODUCT( LinVelETmdX, tmdpx1 )
-AllOuts(TmdXVyt)   = -DOT_PRODUCT( LinVelETmdX, tmdpx3 )
-AllOuts(TmdXVzt)   =  DOT_PRODUCT( LinVelETmdX, tmdpx2 )
-
-AllOuts(TmdXAxt)   =  DOT_PRODUCT( LinAccETmdX, tmdpx1 )
-AllOuts(TmdXAyt)   = -DOT_PRODUCT( LinAccETmdX, tmdpx3 )
-AllOuts(TmdXAzt)   =  DOT_PRODUCT( LinAccETmdX, tmdpx2 )
-
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
-
-
-ENDSELECT
-
-
-SELECT CASE ( TmdYLoc )  ! Which yaw control mode are we using?
-
-   CASE ( 1 )              ! tmdy in nacelle
-
-AllOuts(TmdYDxn)   =  0
-AllOuts(TmdYDyn)   =  -QT  (DOF_TmdY)
-AllOuts(TmdYDzn)   =  0
-
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal change coordinate system
-
-!mal AllOuts(TmdYVxn)   =  DOT_PRODUCT( LinVelETmdY, d1 )
-!mal AllOuts(TmdYVyn)   = -DOT_PRODUCT( LinVelETmdY, d3 )
-!mal AllOuts(TmdYVzn)   =  DOT_PRODUCT( LinVelETmdY, d2 )
-
-!mal AllOuts(TmdYAxn)   =  DOT_PRODUCT( LinAccETmdY, d1 )
-!mal AllOuts(TmdYAyn)   = -DOT_PRODUCT( LinAccETmdY, d3 )
-!mal AllOuts(TmdYAzn)   =  DOT_PRODUCT( LinAccETmdY, d2 )
-
-AllOuts(TmdYVxn)   =  DOT_PRODUCT( LinVelETmdY, tmdny1 )
-AllOuts(TmdYVyn)   = -DOT_PRODUCT( LinVelETmdY, tmdny3 )
-AllOuts(TmdYVzn)   =  DOT_PRODUCT( LinVelETmdY, tmdny2 )
-
-AllOuts(TmdYAxn)   =  DOT_PRODUCT( LinAccETmdY, tmdny1 )
-AllOuts(TmdYAyn)   = -DOT_PRODUCT( LinAccETmdY, tmdny3 )
-AllOuts(TmdYAzn)   =  DOT_PRODUCT( LinAccETmdY, tmdny2 )
-
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
-
-AllOuts(TmdYDxt)   =  0
-AllOuts(TmdYDyt)   =  0
-AllOuts(TmdYDzt)   =  0
-
-AllOuts(TmdYVxt)   =  0
-AllOuts(TmdYVyt)   =  0
-AllOuts(TmdYVzt)   =  0
-
-AllOuts(TmdYAxt)   =  0
-AllOuts(TmdYAyt)   =  0
-AllOuts(TmdYAzt)   =  0
-
-
-   CASE ( 2 )              ! tmdy in platform
-
-
-AllOuts(TmdYDxn)   =  0
-AllOuts(TmdYDyn)   =  0
-AllOuts(TmdYDzn)   =  0
-
-AllOuts(TmdYVxn)   =  0
-AllOuts(TmdYVyn)   =  0
-AllOuts(TmdYVzn)   =  0
-
-AllOuts(TmdYAxn)   =  0
-AllOuts(TmdYAyn)   =  0
-AllOuts(TmdYAzn)   =  0
-
-
-AllOuts(TmdYDxt)   =  0
-AllOuts(TmdYDyt)   =  -QT  (DOF_TmdY)
-AllOuts(TmdYDzt)   =  0
-
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal change coordinate system
-
-!mal AllOuts(TmdYVxt)   =  DOT_PRODUCT( LinVelETmdY, a1 )
-!mal AllOuts(TmdYVyt)   = -DOT_PRODUCT( LinVelETmdY, a3 )
-!mal AllOuts(TmdYVzt)   =  DOT_PRODUCT( LinVelETmdY, a2 )
-
-!mal AllOuts(TmdYAxt)   =  DOT_PRODUCT( LinAccETmdY, a1 )
-!mal AllOuts(TmdYAyt)   = -DOT_PRODUCT( LinAccETmdY, a3 )
-!mal AllOuts(TmdYAzt)   =  DOT_PRODUCT( LinAccETmdY, a2 )
-
-AllOuts(TmdYVxt)   =  DOT_PRODUCT( LinVelETmdY, tmdpy1 )
-AllOuts(TmdYVyt)   = -DOT_PRODUCT( LinVelETmdY, tmdpy3 )
-AllOuts(TmdYVzt)   =  DOT_PRODUCT( LinVelETmdY, tmdpy2 )
-
-AllOuts(TmdYAxt)   =  DOT_PRODUCT( LinAccETmdY, tmdpy1 )
-AllOuts(TmdYAyt)   = -DOT_PRODUCT( LinAccETmdY, tmdpy3 )
-AllOuts(TmdYAzt)   =  DOT_PRODUCT( LinAccETmdY, tmdpy2 )
-
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
-
-ENDSELECT
-
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
-
 
    ! Local Tower Loads:
 
@@ -2176,6 +1998,21 @@ ELSE
 END IF
 
 
+
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus if statement needed to calculate outputs depending on if Tlcds are in nacelle or platform, also change dotprod to DOT_PRODUCT
+
+
+AllOuts( Q_TlcdX   )   =  QT  (DOF_TlcdX)
+AllOuts( QD_TlcdX  )   =  QDT (DOF_TlcdX)
+AllOuts( QD2_TlcdX )   =  QD2T(DOF_TlcdX)
+
+AllOuts( Q_TlcdY   )   =  QT  (DOF_TlcdY)
+AllOuts( QD_TlcdY  )   =  QDT (DOF_TlcdY)
+AllOuts( QD2_TlcdY )   =  QD2T(DOF_TlcdY)
+
+
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 
    ! Place the selected output channels into the OutData(:) array with
@@ -2918,11 +2755,11 @@ USE                             TurbCont
 
 USE                             AeroDyn
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal also use the TMD module
-USE                             TMD
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus also use the Tlcd module
+USE                             Tlcd
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 
 IMPLICIT                        NONE
@@ -3192,7 +3029,7 @@ BlPitch = BlPitchCom
 
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal add control of TMDs.  for now, assume simulink is the way to control them, also replace dotprod with DOT_PRODUCT
+!mal add control of Tlcds.  for now, assume simulink is the way to control them, also replace dotprod with DOT_PRODUCT
 
 
    ! Calculate tower-top acceleration in the tower-top system:
@@ -3207,82 +3044,88 @@ BlPitch = BlPitchCom
 
 
 
-   ! ----------------------------- TmdX CONTROL ------------------------------
-   ! Control TmdX if requested:
+   ! ----------------------------- TlcdX CONTROL ------------------------------
+   ! Control TlcdX if requested:
 
 
-IF ( ZTime >= TTmdXCOn )  THEN   ! Time now to enable active TmdX.
+IF ( ZTime >= TTlcdXCOn )  THEN   ! Time now to enable active TlcdX.
 
 
-   SELECT CASE ( TmdXCMode )  ! Which TmdX control mode are we using?
+   SELECT CASE ( TlcdXCMode )  ! Which TlcdX control mode are we using?
 
    CASE ( 0 )              ! None!
 
    
-   ! Use the initial TmdX properties:
+   ! Use the initial TlcdX properties:
 
    !mal Start of proposed change.  v6.20a-mal  23-July-2009.
    !mal change to use external forces
 
-    !remove6.20a   IF ( DOF_Flag(DOF_TmdX) )  THEN   ! TmdX DOF is currently enabled (use FAST's built-in actuator initial conditions).
+    !remove6.20a   IF ( DOF_Flag(DOF_TlcdX) )  THEN   ! TlcdX DOF is currently enabled (use FAST's built-in actuator initial conditions).
 
-    !remove6.20a   TmdXPosCom  = TmdXNeut
-    !remove6.20a   TmdXRateCom = TmdXRateNeut
+    !remove6.20a   TlcdXPosCom  = TlcdXNeut
+    !remove6.20a   TlcdXRateCom = TlcdXRateNeut
 
-         !remove6.20a   ELSE                             ! TmdX DOF is currently disabled (no built-in actuator) (use FAST's initial TmdX conditions).
+         !remove6.20a   ELSE                             ! TlcdX DOF is currently disabled (no built-in actuator) (use FAST's initial TlcdX conditions).
 
-    !remove6.20a   TmdXPosCom  = TmdXDspInit
-    !remove6.20a   TmdXRateCom = 0.0
+    !remove6.20a   TlcdXPosCom  = TlcdXDspInit
+    !remove6.20a   TlcdXRateCom = 0.0
 
         !remove6.20a   ENDIF
 
-        TmdXFextCom = TmdXFextInit
-        TmdXSprCom  = TmdXSprInit
-        TmdXDampCom = TmdXDampInit
+        !yus Start of proposed change.  v7.01  1-Dec-2014.
+        TlcdXHdLossCom = TlcdXHdLossInit
+        
+        !remove TlcdXSprCom  = TlcdXSprInit
+        !remove TlcdXDampCom = TlcdXDampInit
 
+        !yus End of proposed change.  v7.01  1-Dec-2014.
+        
    !mal End of proposed change.  v6.20a-mal  23-July-2009.
 
 
-   CASE ( 1 )              ! User-defined from routine TmdXCntrl().
+   CASE ( 1 )              ! User-defined from routine TlcdXCntrl().
 
-   ! Call the user-defined TmdX control routine:
+   ! Call the user-defined TlcdX control routine:
 
-      ! CALL TmdXCntrl ( QT(DOF_TmdX), QDT(DOF_TmdX), TmdXDsp, TmdXSpr, TmdXSprCom, TmdXDamp, TmdXDampCom, TwrAccel, TwrAccelSS, ZTime, DT )
+       TlcdXHdLossCom = TlcdXHdLoss ! CALL TlcdXCntrl ( QT(DOF_TlcdX), QDT(DOF_TlcdX), TlcdXDsp, TlcdXSpr, TlcdXSprCom, TlcdXDamp, TlcdXDampCom, TwrAccel, TwrAccelSS, ZTime, DT )
 
 
    CASE ( 2 )              ! User-defined from Simulink.
 
 
-   ! Do nothing here since TmdX is defined externally from Simulink.
+   ! Do nothing here since TlcdX is defined externally from Simulink.
    
 
    ENDSELECT
 
 
-ELSE                          ! Do not control TmdX yet, maintain initial TmdX parameters.
+ELSE                          ! Do not control TlcdX yet, maintain initial TlcdX parameters.
 
 
-   ! Use the initial TmdX parameters:
+   ! Use the initial TlcdX parameters:
 
    !mal Start of proposed change.  v6.20a-mal  23-July-2009.
    !mal change to use external forces
 
-        !remove6.20a   IF ( DOF_Flag(DOF_TmdX) )  THEN   ! TmdX DOF is currently enabled (use FAST's built-in actuator initial conditions).
+        !remove6.20a   IF ( DOF_Flag(DOF_TlcdX) )  THEN   ! TlcdX DOF is currently enabled (use FAST's built-in actuator initial conditions).
 
-    !remove6.20a   TmdXPosCom  = TmdXNeut
-    !remove6.20a   TmdXRateCom = TmdXRateNeut
+    !remove6.20a   TlcdXPosCom  = TlcdXNeut
+    !remove6.20a   TlcdXRateCom = TlcdXRateNeut
 
-        !remove6.20a   ELSE                             ! TmdX DOF is currently disabled (no built-in actuator) (use FAST's initial TmdX conditions).
+        !remove6.20a   ELSE                             ! TlcdX DOF is currently disabled (no built-in actuator) (use FAST's initial TlcdX conditions).
 
-    !remove6.20a   TmdXPosCom  = TmdXDspInit
-    !remove6.20a   TmdXRateCom = 0.0
+    !remove6.20a   TlcdXPosCom  = TlcdXDspInit
+    !remove6.20a   TlcdXRateCom = 0.0
 
         !remove6.20a   ENDIF
 
-        TmdXFextCom = TmdXFextInit
-        TmdXSprCom  = TmdXSprInit
-        TmdXDampCom = TmdXDampInit
-      
+        !yus Start of proposed change.  v7.01  1-Dec-2014.
+        TlcdXHdLossCom = TlcdXHdLossInit
+        !remove TlcdXSprCom  = TlcdXSprInit
+        !remove TlcdXDampCom = TlcdXDampInit
+        !yus End of proposed change.  v7.01  1-Dec-2014.
+        
    !mal End of proposed change.  v6.20a-mal  23-July-2009. 
 
 ENDIF
@@ -3292,21 +3135,23 @@ ENDIF
 !mal change to use external forces
 
 
-        !remove6.20a   IF ( DOF_Flag(DOF_TmdX) )  THEN   ! TmdX DOF is currently enabled (use FAST's built-in actuator).
+        !remove6.20a   IF ( DOF_Flag(DOF_TlcdX) )  THEN   ! TlcdX DOF is currently enabled (use FAST's built-in actuator).
 
-        !remove6.20a   TmdXNeut             = TmdXPosCom
-        !remove6.20a   TmdXRateNeut         = TmdXRateCom
+        !remove6.20a   TlcdXNeut             = TlcdXPosCom
+        !remove6.20a   TlcdXRateNeut         = TlcdXRateCom
+        
+   !yus Start of proposed change.  v7.01  1-Dec-2014.
+   !remove TlcdXSpr              = TlcdXSprCom
+   !remove TlcdXDamp             = TlcdXDampCom
+   TlcdXHdLoss             = TlcdXHdLossCom
+   !yus End of proposed change.  v7.01  1-Dec-2014.
+   
+        !remove6.20a   ELSE                             ! TlcdX DOF is currently disabled (no built-in actuator).
 
-   TmdXSpr              = TmdXSprCom
-   TmdXDamp             = TmdXDampCom
-   TmdXFext             = TmdXFextCom
-
-        !remove6.20a   ELSE                             ! TmdX DOF is currently disabled (no built-in actuator).
-
-        !remove6.20a   Q  (DOF_TmdX,IC(NMX)) = TmdXPosCom    ! Update the saved values
-        !remove6.20a   QD (DOF_TmdX,IC(NMX)) = TmdXRateCom   !   used in routine Solver()
-        !remove6.20a   QT (DOF_TmdX)         = TmdXPosCom    ! Update the current, intermediate
-        !remove6.20a   QDT(DOF_TmdX)         = TmdXRateCom   !    values used in routine RtHS()
+        !remove6.20a   Q  (DOF_TlcdX,IC(NMX)) = TlcdXPosCom    ! Update the saved values
+        !remove6.20a   QD (DOF_TlcdX,IC(NMX)) = TlcdXRateCom   !   used in routine Solver()
+        !remove6.20a   QT (DOF_TlcdX)         = TlcdXPosCom    ! Update the current, intermediate
+        !remove6.20a   QDT(DOF_TlcdX)         = TlcdXRateCom   !    values used in routine RtHS()
 
         !remove6.20a   ENDIF
 
@@ -3315,82 +3160,86 @@ ENDIF
 
 
 
-   ! ----------------------------- TmdY CONTROL ------------------------------
-   ! Control TmdY if requested:
+   ! ----------------------------- TlcdY CONTROL ------------------------------
+   ! Control TlcdY if requested:
 
 
-IF ( ZTime >= TTmdYCOn )  THEN   ! Time now to enable active TmdY.
+IF ( ZTime >= TTlcdYCOn )  THEN   ! Time now to enable active TlcdY.
 
 
-   SELECT CASE ( TmdYCMode )  ! Which TmdY control mode are we using?
+   SELECT CASE ( TlcdYCMode )  ! Which TlcdY control mode are we using?
 
    CASE ( 0 )              ! None!
 
    
-   ! Use the initial TmdY properties:
+   ! Use the initial TlcdY properties:
 
    !mal Start of proposed change.  v6.20a-mal  23-July-2009.
    !mal change to use external forces
 
-    !remove6.20a   IF ( DOF_Flag(DOF_TmdY) )  THEN   ! TmdY DOF is currently enabled (use FAST's built-in actuator initial conditions).
+    !remove6.20a   IF ( DOF_Flag(DOF_TlcdY) )  THEN   ! TlcdY DOF is currently enabled (use FAST's built-in actuator initial conditions).
 
-    !remove6.20a   TmdYPosCom  = TmdYNeut
-    !remove6.20a   TmdYRateCom = TmdYRateNeut
+    !remove6.20a   TlcdYPosCom  = TlcdYNeut
+    !remove6.20a   TlcdYRateCom = TlcdYRateNeut
 
-        !remove6.20a   ELSE                             ! TmdY DOF is currently disabled (no built-in actuator) (use FAST's initial TmdY conditions).
+        !remove6.20a   ELSE                             ! TlcdY DOF is currently disabled (no built-in actuator) (use FAST's initial TlcdY conditions).
 
-    !remove6.20a   TmdYPosCom  = TmdYDspInit
-    !remove6.20a   TmdYRateCom = 0.0
+    !remove6.20a   TlcdYPosCom  = TlcdYDspInit
+    !remove6.20a   TlcdYRateCom = 0.0
 
         !remove6.20a   ENDIF
-
-        TmdYFextCom = TmdYFextInit
-        TmdYSprCom  = TmdYSprInit
-        TmdYDampCom = TmdYDampInit
-
+        
+        !yus Start of proposed change.  v7.01  1-Dec-2014.
+        TlcdYHdLossCom = TlcdYHdLossInit
+        !remove TlcdYSprCom  = TlcdYSprInit
+        !remove TlcdYDampCom = TlcdYDampInit
+        !yus End of proposed change.  v7.01  1-Dec-2014.
+        
    !mal End of proposed change.  v6.20a-mal  23-July-2009.
 
 
-   CASE ( 1 )              ! User-defined from routine TmdYCntrl().
+   CASE ( 1 )              ! User-defined from routine TlcdYCntrl().
 
-   ! Call the user-defined TmdY control routine:
+   ! Call the user-defined TlcdY control routine:
 
-      ! CALL TmdYCntrl ( QT(DOF_TmdY), QDT(DOF_TmdY), TmdYDsp, TmdYSpr, TmdYSprCom, TmdYDamp, TmdYDampCom, TwrAccel, TwrAccelSS, ZTime, DT )
+        TlcdYHdLossCom = TlcdYHdLoss ! CALL TlcdYCntrl ( QT(DOF_TlcdY), QDT(DOF_TlcdY), TlcdYDsp, TlcdYSpr, TlcdYSprCom, TlcdYDamp, TlcdYDampCom, TwrAccel, TwrAccelSS, ZTime, DT )
 
 
    CASE ( 2 )              ! User-defined from Simulink.
 
 
-   ! Do nothing here since TmdY is defined externally from Simulink.
+   ! Do nothing here since TlcdY is defined externally from Simulink.
    
 
    ENDSELECT
 
 
-ELSE                          ! Do not control TmdY yet, maintain initial TmdY parameters.
+ELSE                          ! Do not control TlcdY yet, maintain initial TlcdY parameters.
 
 
-   ! Use the initial TmdY parameters:
+   ! Use the initial TlcdY parameters:
 
    !mal Start of proposed change.  v6.20a-mal  23-July-2009.
    !mal change to use external forces
 
-        !remove6.20a   IF ( DOF_Flag(DOF_TmdY) )  THEN   ! TmdY DOF is currently enabled (use FAST's built-in actuator initial conditions).
+        !remove6.20a   IF ( DOF_Flag(DOF_TlcdY) )  THEN   ! TlcdY DOF is currently enabled (use FAST's built-in actuator initial conditions).
 
-    !remove6.20a   TmdYPosCom  = TmdYNeut
-    !remove6.20a   TmdYRateCom = TmdYRateNeut
+    !remove6.20a   TlcdYPosCom  = TlcdYNeut
+    !remove6.20a   TlcdYRateCom = TlcdYRateNeut
 
-       !remove6.20a   ELSE                             ! TmdY DOF is currently disabled (no built-in actuator) (use FAST's initial TmdY conditions).
+       !remove6.20a   ELSE                             ! TlcdY DOF is currently disabled (no built-in actuator) (use FAST's initial TlcdY conditions).
 
-    !remove6.20a   TmdYPosCom  = TmdYDspInit
-    !remove6.20a   TmdYRateCom = 0.0
+    !remove6.20a   TlcdYPosCom  = TlcdYDspInit
+    !remove6.20a   TlcdYRateCom = 0.0
 
         !remove6.20a   ENDIF
-
-        TmdYFextCom = TmdYFextInit
-        TmdYSprCom  = TmdYSprInit
-        TmdYDampCom = TmdYDampInit
-      
+        
+        !yus Start of proposed change.  v7.01  1-Dec-2014.
+        TlcdYHdLossCom = TlcdYHdLossInit
+        !TlcdYSprCom  = TlcdYSprInit
+        !TlcdYDampCom = TlcdYDampInit
+        !yus End of proposed change.  v7.01  1-Dec-2014.
+        
    !mal End of proposed change.  v6.20a-mal  23-July-2009. 
 
 ENDIF
@@ -3400,21 +3249,23 @@ ENDIF
 !mal change to use external forces
 
 
-        !remove6.20a   IF ( DOF_Flag(DOF_TmdY) )  THEN   ! TmdY DOF is currently enabled (use FAST's built-in actuator).
+        !remove6.20a   IF ( DOF_Flag(DOF_TlcdY) )  THEN   ! TlcdY DOF is currently enabled (use FAST's built-in actuator).
 
-        !remove6.20a   TmdYNeut             = TmdYPosCom
-        !remove6.20a   TmdYRateNeut         = TmdYRateCom
+        !remove6.20a   TlcdYNeut             = TlcdYPosCom
+        !remove6.20a   TlcdYRateNeut         = TlcdYRateCom
+   
+   !yus Start of proposed change.  v7.01  1-Dec-2014.
+   !TlcdYSpr              = TlcdYSprCom
+   !TlcdYDamp             = TlcdYDampCom
+   TlcdYHdLoss             = TlcdYHdLossCom
+   !yus End of proposed change.  v7.01  1-Dec-2014.
+   
+        !remove6.20a   ELSE                             ! TlcdY DOF is currently disabled (no built-in actuator).
 
-   TmdYSpr              = TmdYSprCom
-   TmdYDamp             = TmdYDampCom
-   TmdYFext             = TmdYFextCom
-
-        !remove6.20a   ELSE                             ! TmdY DOF is currently disabled (no built-in actuator).
-
-        !remove6.20a   Q  (DOF_TmdY,IC(NMX)) = TmdYPosCom    ! Update the saved values
-        !remove6.20a   QD (DOF_TmdY,IC(NMX)) = TmdYRateCom   !   used in routine Solver()
-        !remove6.20a   QT (DOF_TmdY)         = TmdYPosCom    ! Update the current, intermediate
-        !remove6.20a   QDT(DOF_TmdY)         = TmdYRateCom   !    values used in routine RtHS()
+        !remove6.20a   Q  (DOF_TlcdY,IC(NMX)) = TlcdYPosCom    ! Update the saved values
+        !remove6.20a   QD (DOF_TlcdY,IC(NMX)) = TlcdYRateCom   !   used in routine Solver()
+        !remove6.20a   QT (DOF_TlcdY)         = TlcdYPosCom    ! Update the current, intermediate
+        !remove6.20a   QDT(DOF_TlcdY)         = TlcdYRateCom   !    values used in routine RtHS()
 
         !remove6.20a   ENDIF
 
@@ -4702,10 +4553,11 @@ USE                             Tower
 USE                             TurbConf
 USE                             Waves, ONLY:InitWaves
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal use TMD
-USE                             TMD
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus use Tlcd and MassInert
+USE                             Tlcd
+USE                             MassInert
+!yus End of proposed change.   v7.01  1-Dec-2014.
 
 
 IMPLICIT                        NONE
@@ -4996,35 +4848,36 @@ DOF_Flag(DOF_Yaw ) = YawDOF
 
 DOF_Desc(DOF_Yaw ) = 'Nacelle yaw DOF (internal DOF index = DOF_Yaw)'
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal set intial TMD motions
+!yus Start of proposed change.   v7.01  1-Dec-2014.
+!yus set intial Tlcd motions
 
-   ! TmdX Motion
+   ! TlcdX Motion
 
-   ! Set initial TmdX displacement to TmdXDsp.  If TmdX is off, this becomes a
+   ! Set initial TlcdX displacement to TlcdXDsp.  If TlcdX is off, this becomes a
    !   0 displacement.
 
-Q (DOF_TmdX ,1) = TmdXDsp
-QD(DOF_TmdX ,1) = 0.0
+Q (DOF_TlcdX ,1) = TlcdXDsp
+QD(DOF_TlcdX ,1) = 0.0
 
-DOF_Flag(DOF_TmdX ) = TmdXDOF
+DOF_Flag(DOF_TlcdX ) = TlcdXDOF
 
-DOF_Desc(DOF_TmdX ) = 'TmdX DOF (internal DOF index = DOF_TmdX)'
+DOF_Desc(DOF_TlcdX ) = 'TlcdX DOF (internal DOF index = DOF_TlcdX)'
 
 
-   ! TmdY Motion
+   ! TlcdY Motion
 
-   ! Set initial TmdY displacement to TmdYDsp.  If TmdY is off, this becomes a
+   ! Set initial TlcdY displacement to TlcdYDsp.  If TlcdY is off, this becomes a
    !   0 displacement.
 
-Q (DOF_TmdY ,1) = TmdYDsp
-QD(DOF_TmdY ,1) = 0.0
+Q (DOF_TlcdY ,1) = TlcdYDsp
+QD(DOF_TlcdY ,1) = 0.0
 
-DOF_Flag(DOF_TmdY ) = TmdYDOF
+DOF_Flag(DOF_TlcdY ) = TlcdYDOF
 
-DOF_Desc(DOF_TmdY ) = 'TmdY DOF (internal DOF index = DOF_TmdY)'
+DOF_Desc(DOF_TlcdY ) = 'TlcdY DOF (internal DOF index = DOF_TlcdY)'
 
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change. v7.01  1-Dec-2014.
+
 
    ! Tower motion
 
@@ -5213,7 +5066,27 @@ ELSEIF ( ( PtfmModel == 3 ) .AND. CompHydro )  THEN   ! .TRUE. if we have floati
 
 ENDIF
 
+!yus Start of proposed change. 1-Dec-2014
+!Initialize tlcd related parameters
 
+TlcdXAreaRat = TlcdXVerArea / TlcdXHorArea
+TlcdXLenEE   = TlcdXHorLen * TlcdXAreaRat + (TlcdXLen-TlcdXHorLen)
+TlcdXLenEM   = TlcdXHorLen / TlcdXAreaRat + (TlcdXLen-TlcdXHorLen)
+
+TlcdYAreaRat = TlcdYVerArea / TlcdYHorArea
+TlcdYLenEE   = TlcdYHorLen * TlcdYAreaRat + (TlcdYLen-TlcdYHorLen)
+TlcdYLenEM   = TlcdYHorLen / TlcdYAreaRat + (TlcdYLen-TlcdYHorLen)
+
+
+TlcdXCMRefz = 0.25*(TlcdXLen-TlcdXHorLen)**2 /  TlcdXLenEM
+TlcdYCMRefz = 0.25*(TlcdYLen-TlcdYHorLen)**2 /  TlcdYLenEM
+
+TlcdXMassRat = TlcdXHorLen  / TlcdXLenEM
+TlcdYMassRat = TlcdYHorLen  / TlcdYLenEM
+
+TlcdXMass  =  TlcdDens * TlcdXVerArea * TlcdXLenEM
+TlcdYMass  =  TlcdDens * TlcdYVerArea * TlcdYLenEM
+!yus End of proposed change. 1-Dec-2014
 
 
 RETURN
@@ -5502,10 +5375,10 @@ USE                             TurbCont
 
 USE                             Constants
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal use the TMD module
-USE                             TMD
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus Start of proposed change. v7.01 1-Dec-2014.
+!yus use the Tlcd module
+USE                             Tlcd
+!yus End of proposed change. v7.01 1-Dec-2014
 
 
 IMPLICIT                        NONE
@@ -5597,37 +5470,40 @@ REAL(ReKi)                   :: TmpVec4   (3)                                   
 REAL(ReKi)                   :: TmpVec5   (3)                                   ! A temporary vector used in various computations.
 
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal add variables for the TMDs EOM 
-REAL(ReKi)                   :: EwNXrOTmdX (3)                                  ! = AngVelEN X rOTmdX
-REAL(ReKi)                   :: rOTmdX     (3)                                  ! Position vector from tower-top / base plate (point O) to TmdX (point TmdX).
 
-REAL(ReKi)                   :: EwNXrOTmdY (3)                                  ! = AngVelEN X rOTmdY
-REAL(ReKi)                   :: rOTmdY     (3)                                  ! Position vector from tower-top / base plate (point O) to TmdY (point TmdY).
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus add variables for the Tlcds EOM 
+REAL(ReKi)                   :: EwNXrOTlcdX (3)                                  ! = AngVelEN X rOTlcdX
+REAL(ReKi)                   :: rOTlcdX     (3)                                  ! Position vector from tower-top / base plate (point O) to TlcdX mass center (point TlcdX).
+
+
+REAL(ReKi)                   :: EwNXrOTlcdY (3)                                  ! = AngVelEN X rOTlcdY
+REAL(ReKi)                   :: rOTlcdY     (3)                                  ! Position vector from tower-top / base plate (point O) to TlcdY  mass center (point TlcdY).
 
 REAL(ReKi)                   :: TmpVec6   (3)                                   ! A temporary vector used in various computations.
 REAL(ReKi)                   :: TmpVec7   (3)                                   ! A temporary vector used in various computations.
 REAL(ReKi)                   :: TmpVec8   (3)                                   ! A temporary vector used in various computations.
 REAL(ReKi)                   :: TmpVec9   (3)                                   ! A temporary vector used in various computations.
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.   v7.01  1-Dec-2014.
 
-!mal Start of proposed change.  v6.30a-mal  29-July-2009.
-!mal stop forces
-REAL(ReKi)                   :: TmdXStopFrc                                     ! The total TmdX stop spring and damper force.
-REAL(ReKi)                   :: TmdYStopFrc                                     ! The total TmdY stop spring and damper force.
 
-!mal End of proposed change.  v6.30a-mal  29-July-2009.
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus stop forces
+REAL(ReKi)                   :: TlcdXStopFrc                                     ! The total TlcdX stop spring and damper force.
+REAL(ReKi)                   :: TlcdYStopFrc                                     ! The total TlcdY stop spring and damper force.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal variables for eoms if tmds are in the platform
 
-REAL(ReKi)                   :: EwXXrZTmdX (3)                                  ! = AngVelEX X rZTmdX
-REAL(ReKi)                   :: rZTmdX     (3)                                  ! Position vector from platform reference (point Z) to TmdX (point TmdX).
+!yus Start of proposed change.   v7.01  1-Dec-2014.
+!yus variables for eoms if Tlcds are in the platform
 
-REAL(ReKi)                   :: EwXXrZTmdY (3)                                  ! = AngVelEX X rZTmdY
-REAL(ReKi)                   :: rZTmdY     (3)                                  ! Position vector from platform reference (point Z) to TmdY (point TmdY).
+REAL(ReKi)                   :: EwXXrZTlcdX (3)                                  ! = AngVelEX X rZTlcdX
+REAL(ReKi)                   :: rZTlcdX     (3)                                  ! Position vector from platform reference (point Z) to TlcdX mass center (point TlcdX).
 
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
+REAL(ReKi)                   :: EwXXrZTlcdY (3)                                  ! = AngVelEX X rZTlcdY
+REAL(ReKi)                   :: rZTlcdY     (3)                                  ! Position vector from platform reference (point Z) to TlcdY mass center (point TlcdY).
+
+!yus End of proposed change.   v7.01  1-Dec-2014.
 
 
 INTEGER(4)                   :: I                                               ! Loops through some or all of the DOFs.
@@ -5680,11 +5556,11 @@ LinAccEWt   = 0.0
 LinAccEYt   = 0.0
 LinAccEZt   = 0.0
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal initialize the TMD linear acceleration variables
-LinAccETmdXt  = 0.0
-LinAccETmdYt  = 0.0
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus Start of proposed change.   v7.01  1-Dec-2014.
+!yus initialize the Tlcd linear acceleration variables
+LinAccETlcdXt  = 0.0
+LinAccETlcdYt  = 0.0
+!yus End of proposed change.   v7.01  1-Dec-2014.
 
 
    ! Let's define the coordinate systems that will be used throughout this routine:
@@ -5730,44 +5606,64 @@ rQ    = rP  + rPQ                                                       ! Positi
 rK    = rO  + rOW + rWK                                                 ! Position vector from inertial frame origin to tail fin center of pressure (point K).
 
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal position vector for tmds in nacelle or platform
 
-!mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal change coordinate system
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus add in Tlcd mass center position and velocity 
+
+
+
+TlcdXCMDx = TlcdXHorLen*  QT(DOF_TlcdX)    / TlcdXLenEM             ! QT(DOF_TlcdX)
+TlcdXCMDy = 0
+TlcdXCMDz = QT(DOF_TlcdX)**2               / TlcdXLenEM
+
+TlcdYCMDx = 0
+TlcdYCMDy = TlcdYHorLen*  QT(DOF_TlcdY)    / TlcdYLenEM
+TlcdYCMDz = QT(DOF_TlcdY)**2               / TlcdYLenEM
+
+
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
+    
 
-!mal rOTmdX   =    (TmdXRefxnt+QT(DOF_TmdX))* d1 +    TmdXRefznt* d2 -    TmdXRefynt* d3                ! Position vector from tower-top / base plate (point O) to TmdX.
-rOTmdX   =    (TmdXRefxnt+QT(DOF_TmdX))* tmdnx1 +    TmdXRefznt* tmdnx2 -    TmdXRefynt* tmdnx3                ! Position vector from tower-top / base plate (point O) to TmdX.
+!mal rOTlcdX   =    (TlcdXRefxnt+QT(DOF_TlcdX))* d1 +    TlcdXRefznt* d2 -    TlcdXRefynt* d3                ! Position vector from tower-top / base plate (point O) to TlcdX.
+!yus rOTlcdX   =    (TlcdXRefxnt+QT(DOF_TlcdX))* Tlcdnx1 +    TlcdXRefznt* Tlcdnx2 -    TlcdXRefynt* Tlcdnx3                ! Position vector from tower-top / base plate (point O) to TlcdX.
+rOTlcdX   =    ( TlcdXRefxnt               + TlcdXCMDx)* Tlcdnx1 &
+             + ( TlcdXRefznt + TlcdXCMRefz + TlcdXCMDz)* Tlcdnx2 &
+             - ( TlcdXRefynt               + TlcdXCMDy)* Tlcdnx3                ! Position vector from tower-top / base plate (point O) to TlcdX.
 
 CASE ( 2 )              ! platform
 
-!mal rZTmdX   =    (TmdXRefxnt+QT(DOF_TmdX))* a1 -    TmdXRefznt* a2 +    TmdXRefynt* a3                ! Position vector from platform reference (point Z) to TmdX.
-rZTmdX   =    (TmdXRefxnt+QT(DOF_TmdX))* tmdpx1 -    TmdXRefznt* tmdpx2 +    TmdXRefynt* tmdpx3                ! Position vector from platform reference (point Z) to TmdX.
+!mal rZTlcdX   =    (TlcdXRefxnt+QT(DOF_TlcdX))* a1 -    TlcdXRefznt* a2 +    TlcdXRefynt* a3                ! Position vector from platform reference (point Z) to TlcdX.
+rZTlcdX   =    ( TlcdXRefxnt               + TlcdXCMDx)* Tlcdpx1 &
+             + (-TlcdXRefznt + TlcdXCMRefz + TlcdXCMDz)* Tlcdpx2 &
+             - (-TlcdXRefynt               + TlcdXCMDy)* Tlcdpx3                ! Position vector from platform reference (point Z) to TlcdX CM.
 
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
-
-!mal rOTmdY   =    TmdYRefxnt* d1 +    TmdYRefznt* d2 -    (TmdYRefynt+QT(DOF_TmdY))* d3                ! Position vector from tower-top / base plate (point O) to TmdX.
-rOTmdY   =    TmdYRefxnt* tmdny1 +    TmdYRefznt* tmdny2 -    (TmdYRefynt+QT(DOF_TmdY))* tmdny3                ! Position vector from tower-top / base plate (point O) to TmdX.
+    
+!mal rOTlcdY   =    TlcdYRefxnt* d1 +    TlcdYRefznt* d2 -    (TlcdYRefynt+QT(DOF_TlcdY))* d3                ! Position vector from tower-top / base plate (point O) to TlcdY.
+rOTlcdY   =    ( TlcdYRefxnt               + TlcdYCMDx)* Tlcdny1 &
+            +  (-TlcdYRefznt + TlcdYCMRefz + TlcdYCMDz)* Tlcdny2 &
+            -  (-TlcdYRefynt               + TlcdYCMDy)* Tlcdny3                ! Position vector from tower-top / base plate (point O) to TlcdY CM.
 
 CASE ( 2 )              ! platform
 
-!mal rZTmdY   =    TmdYRefxnt* a1 -    TmdYRefznt* a2 +    (TmdYRefynt+QT(DOF_TmdY))* a3                ! Position vector from platform reference (point Z) to TmdX.
-rZTmdY   =    TmdYRefxnt* tmdpy1 -    TmdYRefznt* tmdpy2 +    (TmdYRefynt+QT(DOF_TmdY))* tmdpy3                ! Position vector from platform reference (point Z) to TmdX.
+!mal rZTlcdY   =    TlcdYRefxnt* a1 -    TlcdYRefznt* a2 +    (TlcdYRefynt+QT(DOF_TlcdY))* a3                ! Position vector from platform reference (point Z) to TlcdY.
+rZTlcdY   =    ( TlcdYRefxnt               + TlcdYCMDx)* Tlcdpy1 &
+            +  (-TlcdYRefznt + TlcdYCMRefz + TlcdYCMDz)* Tlcdpy2 &
+            -  (-TlcdYRefynt               + TlcdYCMDy)* Tlcdpy3                ! Position vector from platform reference (point Z) to TlcdY CM.
 
 ENDSELECT
 
-!mal End of proposed change.  v7.10a-mal  18-July-2012.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
 
 DO K = 1,NumBl ! Loop through all blades
 
@@ -5920,7 +5816,7 @@ ADInterfaceComponents%Nacelle%Orientation(:,3) = (/      d1(2), -1.*d3(2),     d
    !-------------------------------------------------------------------------------------------------
 
    ! Define the angular and partial angular velocities of all of the rigid
-   !   bodies in the inertia frame:
+   !   bodies in the inertia frame: 
    ! NOTE: PAngVelEN(I,D,:) = the Dth-derivative of the partial angular velocity
    !   of DOF I for body N in body E.
 
@@ -6141,37 +6037,35 @@ CALL CrossProd( EwAXrWJ  , AngVelEA, rWJ   ) !
 CALL CrossProd( EwAXrWK  , AngVelEA, rWK   ) !
 
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal cross product of angular velocity and position of the TMDs
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus cross product of angular velocity and position of the Tlcds mass center
 
-
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
 
-CALL CrossProd( EwNXrOTmdX  , AngVelEN, rOTmdX   ) !
+CALL CrossProd( EwNXrOTlcdX  , AngVelEN, rOTlcdX   ) !
 
 CASE ( 2 )              ! platform
 
-CALL CrossProd( EwXXrZTmdX  , AngVelEX, rZTmdX   ) !
+CALL CrossProd( EwXXrZTlcdX  , AngVelEX, rZTlcdX   ) !
 
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
 
-CALL CrossProd( EwNXrOTmdY  , AngVelEN, rOTmdY   ) !
+CALL CrossProd( EwNXrOTlcdY  , AngVelEN, rOTlcdY   ) !
 
 CASE ( 2 )              ! platform
 
-CALL CrossProd( EwXXrZTmdY  , AngVelEX, rZTmdY   ) !
+CALL CrossProd( EwXXrZTlcdY  , AngVelEX, rZTlcdY   ) !
 
 ENDSELECT
 
-
-!mal End of proposed change.  v6.40a-mal  10-Oct-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 PLinVelEZ(       :,:,:) = 0.0
 PLinVelEZ(DOF_Sg  ,0,:) =  z1
@@ -6258,201 +6152,339 @@ DO I = 1,NPN   ! Loop through all DOFs associated with the angular motion of the
 ENDDO          ! I - all DOFs associated with the angular motion of the nacelle (body N)
 
 
-!mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal find the linear acceleration and velocity terms of the TMDs
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+
+
+
+
+!yus Start of proposed change.  v7.01  1-Dec-2014.
+!yus find the linear acceleration and velocity terms of the Tlcds
+
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
     CASE ( 1 )              ! nacelle
 
-PLinVelETmdX(       :,:,:) = PLinVelEO(:,:,:)
-LinVelETmdX             =  LinVelEZ    ! initialize with LinVelEZ 
+PLinVelETlcdX(       :,:,:) = PLinVelEO(:,:,:)
+LinVelETlcdX             =  LinVelEZ    ! initialize with LinVelEZ 
 
-DO I = 1,NPN   ! Loop through all DOFs associated with the angular motion of the nacelle and the TMD
+!PLinVelETlcdX(DOF_TLCDX,0,:) = Tlcdnx1   - (2*TlcdXColDsp/TlcdXHorLen)*Tlcdnx2
+!CALL    CrossProd(        TmpVec1,                    AngVelEN              , PLinVelETlcdX(DOF_TLCDX,0,:) )
+!PLinVelETlcdX(DOF_TLCDX,1,:) = TmpVec1 -   (2*TlcdXColVel/TlcdXHorLen)*Tlcdnx2
+!LinVelNTlcdX               =          QDT(DOF_TLCDX)*PLinVelETlcdX(DOF_TLCDX,0,:)
+!LinAccETlcdXt              =          QDT(DOF_TLCDX)*PLinVelETlcdX(DOF_TLCDX,1,:)
+PLinVelETlcdX(DOF_TlcdX,0,:) = Tlcdnx1 * TlcdXMassRat
+CALL    CrossProd(        PLinVelETlcdX(DOF_TlcdX,1,:),          AngVelEN              , PLinVelETlcdX(DOF_TlcdX,0,:) )
+!LinVelNTlcdX               =          QDT(DOF_TlcdX)*PLinVelETlcdX(DOF_TLCDX,0,:)
+LinAccETlcdXt              =          QDT(DOF_TlcdX)*PLinVelETlcdX(DOF_TLCDX,1,:)
 
-   CALL CrossProd(        TmpVec0,                   PAngVelEN(PN(I)   ,0,:),     rOTmdX              )
-   CALL CrossProd(        TmpVec1,                   PAngVelEN(PN(I)   ,0,:), EwNXrOTmdX              )
-   CALL CrossProd(        TmpVec2,                   PAngVelEN(PN(I)   ,1,:),     rOTmdX              )
+DO I = 1,NPN   ! Loop through all DOFs associated with the angular motion of the nacelle and the Tlcd
+
+   CALL CrossProd(        TmpVec0,                   PAngVelEN(PN(I)   ,0,:),     rOTlcdX               )
+   CALL CrossProd(        TmpVec1,                   PAngVelEN(PN(I)   ,0,:), EwNXrOTlcdX               )
+   CALL CrossProd(        TmpVec2,                   PAngVelEN(PN(I)   ,1,:),     rOTlcdX               )
    
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
    !mal CALL CrossProd(        TmpVec3,                   PAngVelEN(PN(I)   ,0,:), d1              )
-   CALL CrossProd(        TmpVec3,                   PAngVelEN(PN(I)   ,0,:), tmdnx1              )
+   !CALL CrossProd(        TmpVec3,                   PAngVelEN(PN(I)   ,0,:), Tlcdnx1              )
+   
+   !yus Start of proposed change. v7.01 1-Dec-2014
+   !yus Also include z-axis, since Tlcd mass center is also changing in z direction 
+   !CALL CrossProd(        TmpVec4,                   PAngVelEN(PN(I)   ,0,:), Tlcdnx2              )
+   !yus End of proposed change. v7.01 1-Dec-2014
    
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
-   PLinVelETmdX(PN(I),0,:) = TmpVec0    +               PLinVelETmdX(PN(I)   ,0,:)
-   PLinVelETmdX(PN(I),1,:) = TmpVec1    + TmpVec2 +  TmpVec3*QDT(DOF_TmdX )  +   PLinVelETmdX(PN(I)   ,1,:) 
+   PLinVelETlcdX(PN(I),0,:) = TmpVec0    +               PLinVelETlcdX(PN(I)   ,0,:)
+   
+   !yus Start of proposed change 1-Dec-2014
+   !yus PLinVelETlcdX(PN(I),1,:) = TmpVec1    + TmpVec2 +  TmpVec3*QDT(DOF_TlcdX )  +   PLinVelETlcdX(PN(I)   ,1,:) 
+   
+   PLinVelETlcdX(PN(I),1,:) = TmpVec1    + TmpVec2  +    PLinVelETlcdX(PN(I)   ,1,:) 
+   
+   !yus End of proposed change 1-Dec-2014
+   
+   LinAccETlcdXt         =  LinAccETlcdXt + QDT(PN(I) )*PLinVelETlcdX(PN(I) ,1,:)
+   LinVelETlcdX          =  LinVelETlcdX  + QDT(PN(I) )*PLinVelETlcdX(PN(I) ,0,:)
 
-   LinAccETmdXt         =  LinAccETmdXt + QDT(PN(I) )*PLinVelETmdX(PN(I) ,1,:)
-   LinVelETmdX          =  LinVelETmdX  + QDT(PN(I) )*PLinVelETmdX(PN(I) ,0,:)
+ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the Tlcd
 
-ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the TMD
-
-! Now add in the addition partial velocity and accelration terms for the TMD
+! Now add in the addition partial velocity and accelration terms for the Tlcd
 
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
-   !mal PLinVelETmdX(DOF_TmdX,0,:) =  d1   +               PLinVelETmdX(DOF_TmdX   ,0,:)
-   PLinVelETmdX(DOF_TmdX,0,:) =  tmdnx1   +               PLinVelETmdX(DOF_TmdX   ,0,:)
+   !mal PLinVelETlcdX(DOF_TlcdX,0,:) =  d1   +               PLinVelETlcdX(DOF_TlcdX   ,0,:)
    
+   !yus Start of proposed change.  1-Dec-2014
+   !yus PLinVelETlcdX(DOF_TlcdX,0,:) =  Tlcdnx1   +               PLinVelETlcdX(DOF_TlcdX   ,0,:)   !yus not exactly Tlcdnx1
+   
+    !PLinVelETlcdX(DOF_TLCDX,0,:) =  TlcdXMassvn   +               PLinVelETlcdX(DOF_TlcdX   ,0,:)
+   
+    !yus CALL CrossProd(        TmpVec6,                   AngVelEN,     Tlcdnx1              )
+    !CALL CrossProd(        TmpVec6,                   AngVelEN,     TlcdXMassvn             )
+    
+    !yus End of proposed change.  1-Dec-2014
+   
+    !mal CALL CrossProd(        TmpVec6,                   AngVelEN,     d1              )
 
-    CALL CrossProd(        TmpVec6,                   AngVelEN,     tmdnx1              )
-   !mal CALL CrossProd(        TmpVec6,                   AngVelEN,     d1              )
-
-    PLinVelETmdX(DOF_TmdX,1,:) =  TmpVec6  +     PLinVelETmdX(DOF_TmdX   ,1,:)
+    !PLinVelETlcdX(DOF_TlcdX,1,:) =  TmpVec6  +     PLinVelETlcdX(DOF_TlcdX   ,1,:)
 
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
     CASE ( 2 )              ! platform
 
-PLinVelETmdX(       :,:,:) = PLinVelEZ(:,:,:)
-LinVelETmdX             =  LinVelEZ    ! initialize with LinVelEZ 
+PLinVelETlcdX(       :,:,:) = PLinVelEZ(:,:,:)
+LinVelETlcdX             =  LinVelEZ    ! initialize with LinVelEZ 
 
-DO I = 1,NPX   ! Loop through all DOFs associated with the angular motion of the platform and the TMD
 
-   CALL CrossProd(        TmpVec0,                   PAngVelEX(PX(I)   ,0,:),     rZTmdX              )
-   CALL CrossProd(        TmpVec1,                   PAngVelEX(PX(I)   ,0,:), EwXXrZTmdX              )
+!PLinVelETlcdX(DOF_TLCDX,0,:) = Tlcdpx1   - (2*TlcdXColDsp/TlcdXHorLen)*Tlcdpx2
+!CALL    CrossProd(        TmpVec1,                    AngVelEX              , PLinVelETlcdX(DOF_TLCDX,0,:) )
+!PLinVelETlcdX(DOF_TLCDX,1,:) = TmpVec1 -   (2*TlcdXColVel/TlcdXHorLen)*Tlcdpx2
+!LinVelXTlcdX               =          QDT(DOF_TLCDX)*PLinVelETlcdX(DOF_TLCDX,0,:)
+!LinAccETlcdXt              =          QDT(DOF_TLCDX)*PLinVelETlcdX(DOF_TLCDX,1,:)
+PLinVelETlcdX(DOF_TlcdX,0,:) = Tlcdpx1 * TlcdXMassRat
+CALL    CrossProd(        PLinVelETlcdX(DOF_TlcdX,1,:),          AngVelEX              , PLinVelETlcdX(DOF_TlcdX,0,:) )
+!LinVelXTlcdX               =          QDT(DOF_TlcdX)*PLinVelETlcdX(DOF_TlcdX,0,:)
+LinAccETlcdXt              =          QDT(DOF_TlcdX)*PLinVelETlcdX(DOF_TlcdX,1,:)
+
+
+DO I = 1,NPX   ! Loop through all DOFs associated with the angular motion of the platform and the Tlcd
+
+   CALL CrossProd(        TmpVec0,                   PAngVelEX(PX(I)   ,0,:),     rZTlcdX               )
+   CALL CrossProd(        TmpVec1,                   PAngVelEX(PX(I)   ,0,:), EwXXrZTlcdX               )
+   CALL CrossProd(        TmpVec2,                   PAngVelEX(PX(I)   ,1,:),     rZTlcdX               )
    
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
    !mal CALL CrossProd(        TmpVec3,                   PAngVelEX(PX(I)   ,0,:), a1              )
-   CALL CrossProd(        TmpVec3,                   PAngVelEX(PX(I)   ,0,:), tmdpx1              )
+   !CALL CrossProd(        TmpVec3,                   PAngVelEX(PX(I)   ,0,:), Tlcdpx1              )
+   
+   !yus Also include z-axis, since Tlcd mass center is also changing in this direction 
+   !yus Start of proposed change v7.01 1-Dec-2014
+   !CALL CrossProd(        TmpVec4,                   PAngVelEX(PX(I)   ,0,:), Tlcdpx2              )
+   !yus End of proposed change
    
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
    
    
 !!! take a look here, why no tempvec2?
-   PLinVelETmdX(PX(I),0,:) = TmpVec0    +               PLinVelETmdX(PX(I)   ,0,:)
-   PLinVelETmdX(PX(I),1,:) = TmpVec1    +  TmpVec3*QDT(DOF_TmdX )  +   PLinVelETmdX(PX(I)   ,1,:)
+   PLinVelETlcdX(PX(I),0,:) = TmpVec0    +               PLinVelETlcdX(PX(I)   ,0,:)
+   
+   !yus Start of proposed change 1-Dec-2014
+   !yus PLinVelETlcdX(PX(I),1,:) = TmpVec1    +  TmpVec3*QDT(DOF_TlcdX )  +   PLinVelETlcdX(PX(I)   ,1,:)
+   PLinVelETlcdX(PX(I),1,:) = TmpVec1    +  TmpVec2  +   PLinVelETlcdX(PX(I)   ,1,:)
+   !yus End of proposed change 1-Dec-2014
+   
 
-   LinAccETmdXt         =  LinAccETmdXt + QDT(PX(I) )*PLinVelETmdX(PX(I) ,1,:)
-   LinVelETmdX          =  LinVelETmdX  + QDT(PX(I) )*PLinVelETmdX(PX(I) ,0,:)
+   LinAccETlcdXt         =  LinAccETlcdXt + QDT(PX(I) )*PLinVelETlcdX(PX(I) ,1,:)
+   LinVelETlcdX          =  LinVelETlcdX  + QDT(PX(I) )*PLinVelETlcdX(PX(I) ,0,:)
 
-ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the TMD
+ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the Tlcd
 
-! Now add in the addition partial velocity and accelration terms for the TMD
+! Now add in the addition partial velocity and accelration terms for the Tlcd
 
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
-   !mal PLinVelETmdX(DOF_TmdX,0,:) =  a1   +               PLinVelETmdX(DOF_TmdX   ,0,:)
-   PLinVelETmdX(DOF_TmdX,0,:) =  tmdpx1   +               PLinVelETmdX(DOF_TmdX   ,0,:)
+   !mal PLinVelETlcdX(DOF_TlcdX,0,:) =  a1   +               PLinVelETlcdX(DOF_TlcdX   ,0,:)
    
+   !yus Start of proposed change.  1-Dec-2014
+   !yus Not exactly Tlcdpx1
+   !yus PLinVelETlcdX(DOF_TlcdX,0,:) =  Tlcdpx1   +               PLinVelETlcdX(DOF_TlcdX   ,0,:) 
+   !PLinVelETlcdX(DOF_TlcdX,0,:) =  TlcdXMassvp   +               PLinVelETlcdX(DOF_TlcdX   ,0,:)
+   
+   !yus CALL CrossProd(        TmpVec6,                   AngVelEX,     Tlcdpx1              )
+   !CALL CrossProd(        TmpVec6,                   AngVelEX,     TlcdXMassvp             )
 
-CALL CrossProd(        TmpVec6,                   AngVelEX,     tmdpx1              )
+
 !mal CALL CrossProd(        TmpVec6,                   AngVelEX,     a1              )
 
-PLinVelETmdX(DOF_TmdX,1,:) =  TmpVec6  +     PLinVelETmdX(DOF_TmdX   ,1,:)
+!yus End of proposed change.  1-Dec-2014 
+
+!PLinVelETlcdX(DOF_TlcdX,1,:) =  TmpVec6  +     PLinVelETlcdX(DOF_TlcdX   ,1,:)
 
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
 ENDSELECT
 
-LinAccETmdXt         =  LinAccETmdXt + QDT(DOF_TmdX )*PLinVelETmdX(DOF_TmdX ,1,:)
-LinVelETmdX          =  LinVelETmdX  + QDT(DOF_TmdX )*PLinVelETmdX(DOF_TmdX ,0,:)
+!yus Start of proposed change. 1-Dec-2014
+!yus LinAccETlcdXt         =  LinAccETlcdXt + QDT(DOF_TlcdX )*PLinVelETlcdX(DOF_TlcdX ,1,:)
+!yus LinVelETlcdX          =  LinVelETlcdX  + QDT(DOF_TlcdX )*PLinVelETlcdX(DOF_TlcdX ,0,:)
+!LinAccETlcdXt         =  LinAccETlcdXt + TlcdXMassvt *PLinVelETlcdX(DOF_TlcdX ,1,:)
+!LinVelETlcdX          =  LinVelETlcdX  + TlcdXMassvt *PLinVelETlcdX(DOF_TlcdX ,0,:)
+!yus End of proposed change. 1-Dec-2014
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdx location?
+
+
+
+
+
+
+
+
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdx location?
 
     CASE ( 1 )              ! nacelle
 
-PLinVelETmdY(       :,:,:) = PLinVelEO(:,:,:)
-LinVelETmdY             =  LinVelEZ     ! initialize with LinVelEZ 
+PLinVelETlcdY(       :,:,:) = PLinVelEO(:,:,:)
+LinVelETlcdY             =  LinVelEZ     ! initialize with LinVelEZ 
 
-DO I = 1,NPN   ! Loop through all DOFs associated with the angular motion of the nacelle and the TMD
+!PLinVelETlcdY(DOF_TLCDY,0,:) = -Tlcdny3   - (2*TlcdYColDsp/TlcdYHorLen)*Tlcdny2
+!CALL    CrossProd(        TmpVec1,                    AngVelEN              , PLinVelETlcdY(DOF_TLCDY,0,:) )
+!PLinVelETlcdY(DOF_TLCDY,1,:) =  TmpVec1 -   (2*TlcdYColVel/TlcdYHorLen)*Tlcdny2
+!LinVelNTlcdY               =          QDT(DOF_TLCDY)*PLinVelETlcdY(DOF_TLCDY,0,:)
+!LinAccETlcdYt              =          QDT(DOF_TLCDY)*PLinVelETlcdY(DOF_TLCDY,1,:)
+PLinVelETlcdY(DOF_TlcdY,0,:) = -Tlcdny3 * TlcdYMassRat
+CALL    CrossProd(        PLinVelETlcdY(DOF_TlcdY,1,:),                    AngVelEN              , PLinVelETlcdY(DOF_TlcdY,0,:) )
+!LinVelNTlcdY               =          QDT(DOF_TlcdY)*PLinVelETlcdY(DOF_TlcdY,0,:)
+LinAccETlcdYt              =          QDT(DOF_TlcdY)*PLinVelETlcdY(DOF_TlcdY,1,:)
 
-   CALL CrossProd(        TmpVec0,                   PAngVelEN(PN(I)   ,0,:),     rOTmdY              )
-   CALL CrossProd(        TmpVec1,                   PAngVelEN(PN(I)   ,0,:), EwNXrOTmdY              )
-   CALL CrossProd(        TmpVec2,                   PAngVelEN(PN(I)   ,1,:),     rOTmdY              )
+
+DO I = 1,NPN   ! Loop through all DOFs associated with the angular motion of the nacelle and the Tlcd
+
+   CALL CrossProd(        TmpVec0,                   PAngVelEN(PN(I)   ,0,:),     rOTlcdY              )
+   CALL CrossProd(        TmpVec1,                   PAngVelEN(PN(I)   ,0,:), EwNXrOTlcdY              )
+   CALL CrossProd(        TmpVec2,                   PAngVelEN(PN(I)   ,1,:),     rOTlcdY              )
    
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
    !mal CALL CrossProd(        TmpVec3,                   PAngVelEN(PN(I)   ,0,:), -d3              )
-   CALL CrossProd(        TmpVec3,                   PAngVelEN(PN(I)   ,0,:), -tmdny3              )
+   !CALL CrossProd(        TmpVec3,                   PAngVelEN(PN(I)   ,0,:), -Tlcdny3              )
+  
+   !yus Start of proposed change. v7.01 1-Dec-2014
+   !yus Also include z-axis, since Tlcd mass center is also changing in z direction 
+   !CALL CrossProd(        TmpVec4,                   PAngVelEN(PN(I)   ,0,:), Tlcdny2              )
+   !yus End of proposed change. v7.01 1-Dec-2014   
+   
    
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
    
    
 
-   PLinVelETmdY(PN(I),0,:) = TmpVec0    +               PLinVelETmdY(PN(I)   ,0,:)
-   PLinVelETmdY(PN(I),1,:) = TmpVec1    + TmpVec2 +  TmpVec3*QDT(DOF_TmdY )   +    PLinVelETmdY(PN(I)   ,1,:) 
+   PLinVelETlcdY(PN(I),0,:) = TmpVec0    +               PLinVelETlcdY(PN(I)   ,0,:)
+   
+   !yus Start of proposed change 1-Dec-2014
+   !PLinVelETlcdY(PN(I),1,:) = TmpVec1    + TmpVec2 +  TmpVec3*QDT(DOF_TlcdY )    PLinVelETlcdY(PN(I)   ,1,:) 
+   PLinVelETlcdY(PN(I),1,:) = TmpVec1    + TmpVec2  +    PLinVelETlcdY(PN(I)   ,1,:) 
+   !yus End of proposed change 1-Dec-2014
 
-   LinAccETmdYt            =  LinAccETmdYt + QDT(PN(I)   )*PLinVelETmdY(PN(I)   ,1,:)
-   LinVelETmdY             =  LinVelETmdY  + QDT(PN(I) )*PLinVelETmdY(PN(I) ,0,:)
+   LinAccETlcdYt            =  LinAccETlcdYt + QDT(PN(I) )*PLinVelETlcdY(PN(I) ,1,:)
+   LinVelETlcdY             =  LinVelETlcdY  + QDT(PN(I) )*PLinVelETlcdY(PN(I) ,0,:)
 
-ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the TMD
+ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the Tlcd
 
-! Now add in the addition partial velocity and accelration terms for the TMD
+! Now add in the addition partial velocity and accelration terms for the Tlcd
 
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
-   !mal PLinVelETmdY(DOF_TmdY,0,:) =  -d3   +               PLinVelETmdY(DOF_TmdY   ,0,:)
-   PLinVelETmdY(DOF_TmdY,0,:) =  -tmdny3   +               PLinVelETmdY(DOF_TmdY   ,0,:)
+   !yus Start of proposed change.  1-Dec-2014
+   !yus Not exactly -Tlcdny3
    
+   !mal PLinVelETlcdY(DOF_TlcdY,0,:) =  -d3   +               PLinVelETlcdY(DOF_TlcdY   ,0,:)
+   !yus PLinVelETlcdY(DOF_TlcdY,0,:) =  -Tlcdny3   +               PLinVelETlcdY(DOF_TlcdY   ,0,:)
+   !PLinVelETlcdY(DOF_TlcdY,0,:) =  TlcdYMassvn   +               PLinVelETlcdY(DOF_TlcdY   ,0,:)
 
-    CALL CrossProd(        TmpVec6,                   AngVelEN,     -tmdny3              )
+    !yus CALL CrossProd(        TmpVec6,                   AngVelEN,     -Tlcdny3              )
+   !CALL CrossProd(        TmpVec6,                   AngVelEN,     TlcdYMassvn          )
 !mal CALL CrossProd(        TmpVec6,                   AngVelEN,     -d3              )
 
-PLinVelETmdY(DOF_TmdY,1,:) =  TmpVec6  +     PLinVelETmdY(DOF_TmdY   ,1,:)
+!PLinVelETlcdY(DOF_TlcdY,1,:) =  TmpVec6  +     PLinVelETlcdY(DOF_TlcdY   ,1,:)
+
+   !yus End of proposed change.  1-Dec-2014
 
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
     CASE ( 2 )              ! platform
 
-PLinVelETmdY(       :,:,:) = PLinVelEZ(:,:,:)
-LinVelETmdY             =  LinVelEZ    ! initialize with LinVelEZ 
+PLinVelETlcdY(       :,:,:) = PLinVelEZ(:,:,:)
+LinVelETlcdY             =  LinVelEZ    ! initialize with LinVelEZ 
 
-DO I = 1,NPX   ! Loop through all DOFs associated with the angular motion of the platform and the TMD
+!PLinVelETlcdY(DOF_TLCDY,0,:) = -Tlcdpy3   - (2*TlcdYColDsp/TlcdYHorLen)*Tlcdpy2
+!CALL    CrossProd(        TmpVec1,                    AngVelEX              , PLinVelETlcdY(DOF_TLCDY,0,:) )
+!PLinVelETlcdY(DOF_TLCDY,1,:) =  TmpVec1 -   (2*TlcdYColVel/TlcdYHorLen)*Tlcdpy2
+!LinVelXTlcdY               =          QDT(DOF_TLCDY)*PLinVelETlcdY(DOF_TLCDY,0,:)
+!LinAccETlcdYt              =          QDT(DOF_TLCDY)*PLinVelETlcdY(DOF_TLCDY,1,:)
+PLinVelETlcdY(DOF_TlcdY,0,:) = -Tlcdpy3 * TlcdYMassRat
+CALL    CrossProd(        PLinVelETlcdY(DOF_TlcdY,1,:),                    AngVelEX              , PLinVelETlcdY(DOF_TlcdY,0,:) )
+!LinVelXTlcdY               =          QDT(DOF_TlcdY)*PLinVelETlcdY(DOF_TlcdY,0,:)
+LinAccETlcdYt              =          QDT(DOF_TlcdY)*PLinVelETlcdY(DOF_TlcdY,1,:)
 
-   CALL CrossProd(        TmpVec0,                   PAngVelEX(PX(I)   ,0,:),     rZTmdY              )
-   CALL CrossProd(        TmpVec1,                   PAngVelEX(PX(I)   ,0,:), EwXXrZTmdY              )
+
+DO I = 1,NPX   ! Loop through all DOFs associated with the angular motion of the platform and the Tlcd
+
+   CALL CrossProd(        TmpVec0,                   PAngVelEX(PX(I)   ,0,:),     rZTlcdY              )
+   CALL CrossProd(        TmpVec1,                   PAngVelEX(PX(I)   ,0,:), EwXXrZTlcdY              )
+   CALL CrossProd(        TmpVec2,                   PAngVelEX(PN(I)   ,1,:),     rZTlcdY              )
    
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
    !mal CALL CrossProd(        TmpVec3,                   PAngVelEX(PX(I)   ,0,:), a3              )
-   CALL CrossProd(        TmpVec3,                   PAngVelEX(PX(I)   ,0,:), tmdpy3              )
+   !CALL CrossProd(        TmpVec3,                   PAngVelEX(PX(I)   ,0,:), Tlcdpy3              )
+   
+   !yus Start of proposed change. v7.01 1-Dec-2014
+   !yus Also include z-axis, since Tlcd mass center is also changing in z direction 
+   !CALL CrossProd(        TmpVec4,                   PAngVelEN(PN(I)   ,0,:), Tlcdpy2              )
+   !yus End of proposed change. v7.01 1-Dec-2014   
    
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
-   PLinVelETmdY(PX(I),0,:) = TmpVec0    +               PLinVelETmdY(PX(I)   ,0,:)
-   PLinVelETmdY(PX(I),1,:) = TmpVec1    +  TmpVec3*QDT(DOF_TmdY )  +   PLinVelETmdY(PX(I)   ,1,:)
+   PLinVelETlcdY(PX(I),0,:) = TmpVec0    +               PLinVelETlcdY(PX(I)   ,0,:)
+   
+   !yus Start of proposed change 1-Dec-2014
+   !yus PLinVelETlcdY(PX(I),1,:) = TmpVec1    +  TmpVec3*QDT(DOF_TlcdY )  +   PLinVelETlcdY(PX(I)   ,1,:)
+   PLinVelETlcdY(PX(I),1,:) = TmpVec1    +   TmpVec2  +  PLinVelETlcdY(PX(I)   ,1,:)  
+   !yus End of proposed change 1-Dec-2014
+   
+   LinAccETlcdYt         =  LinAccETlcdYt + QDT(PX(I) )*PLinVelETlcdY(PX(I) ,1,:)
+   LinVelETlcdY          =  LinVelETlcdY  + QDT(PX(I) )*PLinVelETlcdY(PX(I) ,0,:)
 
-   LinAccETmdYt         =  LinAccETmdYt + QDT(PX(I) )*PLinVelETmdY(PX(I) ,1,:)
-   LinVelETmdY          =  LinVelETmdY  + QDT(PX(I) )*PLinVelETmdY(PX(I) ,0,:)
+ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the Tlcd
 
-ENDDO          ! I - all DOFs associated with the angular motion of the nacelle and the TMD
-
-! Now add in the addition partial velocity and accelration terms for the TMD
+! Now add in the addition partial velocity and accelration terms for the Tlcd
 
    !mal Start of proposed change.  v7.10a-mal  18-July-2012.
    !mal change coordinate system
    
-   !mal PLinVelETmdY(DOF_TmdY,0,:) =  a3   +               PLinVelETmdY(DOF_TmdY   ,0,:)
-   PLinVelETmdY(DOF_TmdY,0,:) =  tmdpy3   +               PLinVelETmdY(DOF_TmdY   ,0,:)
+   !yus Start of proposed change 1-Dec-2014
+   !mal PLinVelETlcdY(DOF_TlcdY,0,:) =  a3   +               PLinVelETlcdY(DOF_TlcdY   ,0,:)
+   !yus PLinVelETlcdY(DOF_TlcdY,0,:) =  Tlcdpy3   +               PLinVelETlcdY(DOF_TlcdY   ,0,:)
+   !PLinVelETlcdY(DOF_TlcdY,0,:) =  TlcdYMassvp   +               PLinVelETlcdY(DOF_TlcdY   ,0,:)
    
-   
-CALL CrossProd(        TmpVec6,                   AngVelEX,     tmdpy3              )
+!yus CALL CrossProd(        TmpVec6,                   AngVelEX,     Tlcdpy3              )
+!CALL CrossProd(        TmpVec6,                   AngVelEX,     TlcdYMassvp          )
 !mal CALL CrossProd(        TmpVec6,                   AngVelEX,     a3              )
 
-PLinVelETmdY(DOF_TmdY,1,:) =  TmpVec6  +     PLinVelETmdY(DOF_TmdY   ,1,:)
+!PLinVelETlcdY(DOF_TlcdY,1,:) =  TmpVec6  +     PLinVelETlcdY(DOF_TlcdY   ,1,:)
+
+   !yus End of proposed change 1-Dec-2014
 
    !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
 ENDSELECT
 
-
-LinAccETmdYt            =  LinAccETmdYt + QDT(DOF_TmdY   )*PLinVelETmdY(DOF_TmdY  ,1,:)
-LinVelETmdY             =  LinVelETmdY  + QDT(DOF_TmdY )*PLinVelETmdY(DOF_TmdY ,0,:)
-
+!yus Start of proposed change. 1-Dec-2014
+!yus LinAccETlcdYt            =  LinAccETlcdYt + QDT(DOF_TlcdY   )*PLinVelETlcdY(DOF_TlcdY  ,1,:)
+!yus LinVelETlcdY             =  LinVelETlcdY  + QDT(DOF_TlcdY )*PLinVelETlcdY(DOF_TlcdY ,0,:)
+!LinAccETlcdYt            =  LinAccETlcdYt + TlcdYMassvt*PLinVelETlcdY(DOF_TlcdY  ,1,:)
+!LinVelETlcdY             =  LinVelETlcdY  + TlcdYMassvt*PLinVelETlcdY(DOF_TlcdY ,0,:)
+!yus End of proposed change. 1-Dec-2014
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
+
+
+
+
+
+
+
+
 
 
 PLinVelEV(       :,:,:) = PLinVelEO(:,:,:)
@@ -7184,56 +7216,61 @@ ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-relat
 
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal additional terms due to the TMDs
+!mal additional terms due to the Tlcds
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+!yus! Define the partial forces and moments (including those associated with
+    !   the QD2T()'s and those that are not) at the yaw bearing (point O) /
+    !   base plate (body B) using the tlcd effects.
+
+
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
     CASE ( 1 )              ! nacelle
 
 ! initialize partial forces to 0.0
-PFrcOTmdX  = 0.0
-PMomNOTmdX  = 0.0
+PFrcOTlcdX  = 0.0
+PMomNOTlcdX  = 0.0
 
-DO I = 1,NPTmdXE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdX
+DO I = 1,NPTlcdXE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdX
 
-   TmpVec1 = -TmdXMass*PLinVelETmdX(PTmdXE(I),0,:)        ! The portion of PFrcOTmdX associated with the TmdX
-   CALL CrossProd( TmpVec2, rOTmdX,               TmpVec1 ) ! The portion of PMomNOTmdX associated with the TmdX
+   TmpVec1 = -TlcdXMass*PLinVelETlcdX(PTlcdXE(I),0,:)        ! The portion of PFrcOTlcdX associated with the TlcdX
+   CALL CrossProd( TmpVec2, rOTlcdX,               TmpVec1 ) ! The portion of PMomNOTlcdX associated with the TlcdX
 
-   PFrcOTmdX(PTmdXE(I)  ,:) = PFrcOTmdX(PTmdXE(I)  ,:) + TmpVec1
+   PFrcOTlcdX(PTlcdXE(I)  ,:) = PFrcOTlcdX(PTlcdXE(I)  ,:) + TmpVec1
 
-   PMomNOTmdX(PTmdXE(I)  ,:) = PMomNOTmdX(PTmdXE(I)  ,:) + TmpVec2
+   PMomNOTlcdX(PTlcdXE(I)  ,:) = PMomNOTlcdX(PTlcdXE(I)  ,:) + TmpVec2
 
-   PFrcONcRt(PTmdXE(I)  ,:) = PFrcONcRt(PTmdXE(I)  ,:) + TmpVec1
+   PFrcONcRt(PTlcdXE(I)  ,:) = PFrcONcRt(PTlcdXE(I)  ,:) + TmpVec1
 
-   PMomBNcRt(PTmdXE(I)  ,:) = PMomBNcRt(PTmdXE(I)  ,:) + TmpVec2
+   PMomBNcRt(PTlcdXE(I)  ,:) = PMomBNcRt(PTlcdXE(I)  ,:) + TmpVec2
 
-ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdX
+ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdX
 
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
     CASE ( 1 )              ! nacelle
 
 ! initialize partial forces to 0.0
-PFrcOTmdY  = 0.0
-PMomNOTmdY  = 0.0
+PFrcOTlcdY  = 0.0
+PMomNOTlcdY  = 0.0
 
-DO I = 1,NPTmdYE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdY
+DO I = 1,NPTlcdYE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdY
 
-   TmpVec1 = -TmdYMass*PLinVelETmdY(PTmdYE(I),0,:)        ! The portion of PFrcOTmdY associated with the TmdY
-   CALL CrossProd( TmpVec2, rOTmdY,               TmpVec1 ) ! The portion of PMomNOTmdY associated with the TmdY
+   TmpVec1 = -TlcdYMass*PLinVelETlcdY(PTlcdYE(I),0,:)        ! The portion of PFrcOTlcdY associated with the TlcdY
+   CALL CrossProd( TmpVec2, rOTlcdY,               TmpVec1 ) ! The portion of PMomNOTlcdY associated with the TlcdY
 
-   PFrcOTmdY(PTmdYE(I)  ,:) = PFrcOTmdY(PTmdYE(I)  ,:) + TmpVec1
+   PFrcOTlcdY(PTlcdYE(I)  ,:) = PFrcOTlcdY(PTlcdYE(I)  ,:) + TmpVec1
 
-   PMomNOTmdY(PTmdYE(I)  ,:) = PMomNOTmdY(PTmdYE(I)  ,:) + TmpVec2
+   PMomNOTlcdY(PTlcdYE(I)  ,:) = PMomNOTlcdY(PTlcdYE(I)  ,:) + TmpVec2
 
-   PFrcONcRt(PTmdYE(I)  ,:) = PFrcONcRt(PTmdYE(I)  ,:) + TmpVec1
+   PFrcONcRt(PTlcdYE(I)  ,:) = PFrcONcRt(PTlcdYE(I)  ,:) + TmpVec1
 
-   PMomBNcRt(PTmdYE(I)  ,:) = PMomBNcRt(PTmdYE(I)  ,:) + TmpVec2
+   PMomBNcRt(PTlcdYE(I)  ,:) = PMomBNcRt(PTlcdYE(I)  ,:) + TmpVec2
 
-ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdY
+ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdY
 
 ENDSELECT
 
@@ -7254,31 +7291,31 @@ MomBNcRtt = MomNGnRtt + MomNTailt + TmpVec2 + TmpVec3 + TmpVec4 + TmpVec5 &
           - Nacd2Iner*d2*DOT_PRODUCT( d2, AngAccENt )
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal additional terms due to the TMDs
+!mal additional terms due to the Tlcds
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
     CASE ( 1 )              ! nacelle
 
-FrcOTmdXt = -TmdXMass*( Gravity*z2 + LinAccETmdXt )      ! The portion of FrcONcRtt associated with the TmdX
+FrcOTlcdXt = -TlcdXMass*( Gravity*z2 + LinAccETlcdXt )      ! The portion of FrcONcRtt associated with the TlcdX
 
-CALL CrossProd( MomNOTmdXt, rOTmdX      ,   FrcOTmdXt )    ! The portion of MomBNcRtt associated with the TmdX
+CALL CrossProd( MomNOTlcdXt, rOTlcdX      ,   FrcOTlcdXt )    ! The portion of MomBNcRtt associated with the TlcdX
 
-FrcONcRtt = FrcONcRtt + FrcOTmdXt
-MomBNcRtt = MomBNcRtt + MomNOTmdXt
+FrcONcRtt = FrcONcRtt + FrcOTlcdXt
+MomBNcRtt = MomBNcRtt + MomNOTlcdXt
 
 ENDSELECT
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
     CASE ( 1 )              ! nacelle
 
-FrcOTmdYt = -TmdYMass*( Gravity*z2 + LinAccETmdYt )      ! The portion of FrcONcRtt associated with the TmdY
+FrcOTlcdYt = -TlcdYMass*( Gravity*z2 + LinAccETlcdYt )      ! The portion of FrcONcRtt associated with the TlcdY
 
-CALL CrossProd( MomNOTmdYt, rOTmdY      ,   FrcOTmdYt )    ! The portion of MomBNcRtt associated with the TmdY
+CALL CrossProd( MomNOTlcdYt, rOTlcdY      ,   FrcOTlcdYt )    ! The portion of MomBNcRtt associated with the TlcdY
 
-FrcONcRtt = FrcONcRtt + FrcOTmdYt
-MomBNcRtt = MomBNcRtt + MomNOTmdYt
+FrcONcRtt = FrcONcRtt + FrcOTlcdYt
+MomBNcRtt = MomBNcRtt + MomNOTlcdYt
 
 ENDSELECT
 
@@ -7738,56 +7775,56 @@ DO I = 1,NPYE  ! Loop through all active (enabled) DOFs that contribute to the Q
 ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the platform center of mass (point Y)
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal if tmds in platform
+!mal if Tlcds in platform
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
     CASE ( 2 )              ! platform
 
 ! initialize partial forces to 0.0
-PFrcZTmdX  = 0.0
-PMomXZTmdX  = 0.0
+PFrcZTlcdX  = 0.0
+PMomXZTlcdX  = 0.0
 
-DO I = 1,NPTmdXE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdX
+DO I = 1,NPTlcdXE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdX
 
-   TmpVec1 = -TmdXMass*PLinVelETmdX(PTmdXE(I),0,:)        ! The portion of PFrcZTmdX associated with the TmdX
-   CALL CrossProd( TmpVec2, rZTmdX,               TmpVec1 ) ! The portion of PMomXZTmdX associated with the TmdX
+   TmpVec1 = -TlcdXMass*PLinVelETlcdX(PTlcdXE(I),0,:)        ! The portion of PFrcZTlcdX associated with the TlcdX
+   CALL CrossProd( TmpVec2, rZTlcdX,               TmpVec1 ) ! The portion of PMomXZTlcdX associated with the TlcdX
 
-   PFrcZTmdX(PTmdXE(I)  ,:) = PFrcZTmdX(PTmdXE(I)  ,:) + TmpVec1
+   PFrcZTlcdX(PTlcdXE(I)  ,:) = PFrcZTlcdX(PTlcdXE(I)  ,:) + TmpVec1
 
-   PMomXZTmdX(PTmdXE(I)  ,:) = PMomXZTmdX(PTmdXE(I)  ,:) + TmpVec2
+   PMomXZTlcdX(PTlcdXE(I)  ,:) = PMomXZTlcdX(PTlcdXE(I)  ,:) + TmpVec2
 
-   PFrcZAll(PTmdXE(I)  ,:) = PFrcZAll(PTmdXE(I)  ,:) + TmpVec1
+   PFrcZAll(PTlcdXE(I)  ,:) = PFrcZAll(PTlcdXE(I)  ,:) + TmpVec1
 
-   PMomXAll(PTmdXE(I)  ,:) = PMomXAll(PTmdXE(I)  ,:) + TmpVec2
+   PMomXAll(PTlcdXE(I)  ,:) = PMomXAll(PTlcdXE(I)  ,:) + TmpVec2
 
-ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdX
+ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdX
 
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdx location?
 
     CASE ( 2 )              ! platform
 
 ! initialize partial forces to 0.0
-PFrcZTmdY  = 0.0
-PMomXZTmdY  = 0.0
+PFrcZTlcdY  = 0.0
+PMomXZTlcdY  = 0.0
 
-DO I = 1,NPTmdYE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdY
+DO I = 1,NPTlcdYE  ! Loop through all active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdY
 
-   TmpVec1 = -TmdYMass*PLinVelETmdY(PTmdYE(I),0,:)        ! The portion of PFrcZTmdY associated with the TmdY
-   CALL CrossProd( TmpVec2, rZTmdY,               TmpVec1 ) ! The portion of PMomXZTmdY associated with the TmdY
+   TmpVec1 = -TlcdYMass*PLinVelETlcdY(PTlcdYE(I),0,:)        ! The portion of PFrcZTlcdY associated with the TlcdY
+   CALL CrossProd( TmpVec2, rZTlcdY,               TmpVec1 ) ! The portion of PMomXZTlcdY associated with the TlcdY
 
-   PFrcZTmdY(PTmdYE(I)  ,:) = PFrcZTmdY(PTmdYE(I)  ,:) + TmpVec1
+   PFrcZTlcdY(PTlcdYE(I)  ,:) = PFrcZTlcdY(PTlcdYE(I)  ,:) + TmpVec1
 
-   PMomXZTmdY(PTmdYE(I)  ,:) = PMomXZTmdY(PTmdYE(I)  ,:) + TmpVec2
+   PMomXZTlcdY(PTlcdYE(I)  ,:) = PMomXZTlcdY(PTlcdYE(I)  ,:) + TmpVec2
 
-   PFrcZAll(PTmdYE(I)  ,:) = PFrcZAll(PTmdYE(I)  ,:) + TmpVec1
+   PFrcZAll(PTlcdYE(I)  ,:) = PFrcZAll(PTlcdYE(I)  ,:) + TmpVec1
 
-   PMomXAll(PTmdYE(I)  ,:) = PMomXAll(PTmdYE(I)  ,:) + TmpVec2
+   PMomXAll(PTlcdYE(I)  ,:) = PMomXAll(PTlcdYE(I)  ,:) + TmpVec2
 
-ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TmdY
+ENDDO          ! I - All active (enabled) DOFs that contribute to the QD2T-related linear accelerations of the TlcdY
 
 ENDSELECT
 
@@ -7808,31 +7845,31 @@ MomXAllt = MomX0Trbt + MXHydrot + TmpVec2 + TmpVec3 + TmpVec4
 
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal additional terms due to the TMDs
+!mal additional terms due to the Tlcds
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
     CASE ( 2 )              ! nacelle
 
-FrcZTmdXt = -TmdXMass*( Gravity*z2 + LinAccETmdXt )      ! The portion of FrcZAllt associated with the TmdX
+FrcZTlcdXt = -TlcdXMass*( Gravity*z2 + LinAccETlcdXt )      ! The portion of FrcZAllt associated with the TlcdX
 
-CALL CrossProd( MomXZTmdXt, rZTmdX      ,   FrcZTmdXt )    ! The portion of MomXAllt associated with the TmdX
+CALL CrossProd( MomXZTlcdXt, rZTlcdX      ,   FrcZTlcdXt )    ! The portion of MomXAllt associated with the TlcdX
 
-FrcZAllt = FrcZAllt + FrcZTmdXt
-MomXAllt = MomXAllt + MomXZTmdXt
+FrcZAllt = FrcZAllt + FrcZTlcdXt
+MomXAllt = MomXAllt + MomXZTlcdXt
 
 ENDSELECT
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
     CASE ( 2 )              ! nacelle
 
-FrcZTmdYt = -TmdYMass*( Gravity*z2 + LinAccETmdYt )      ! The portion of FrcZAllt associated with the TmdY
+FrcZTlcdYt = -TlcdYMass*( Gravity*z2 + LinAccETlcdYt )      ! The portion of FrcZAllt associated with the TlcdY
 
-CALL CrossProd( MomXZTmdYt, rZTmdY      ,   FrcZTmdYt )    ! The portion of MomXAllt associated with the TmdY
+CALL CrossProd( MomXZTlcdYt, rZTlcdY      ,   FrcZTlcdYt )    ! The portion of MomXAllt associated with the TlcdY
 
-FrcZAllt = FrcZAllt + FrcZTmdYt
-MomXAllt = MomXAllt + MomXZTmdYt
+FrcZAllt = FrcZAllt + FrcZTlcdYt
+MomXAllt = MomXAllt + MomXZTlcdYt
 
 ENDSELECT
 
@@ -7851,10 +7888,10 @@ CALL DrvTrTrq(               QDT(DOF_GeAz), GBoxTrq ) ! Compute generator and HS
 
 
 !mal Start of proposed change.  v6.30a-mal  29-July-2009.
-!mal compute stop forces on the TMDs
+!mal compute stop forces on the Tlcds
 
-CALL TmdXStop( QT(DOF_TmdX), QDT(DOF_TmdX), TmdXStopFrc ) ! Compute force from TMDX stop springs and dampers, TmdXStopFrc
-CALL TmdYStop( QT(DOF_TmdY), QDT(DOF_TmdY), TmdYStopFrc ) ! Compute force from TMDY stop springs and dampers, TmdYStopFrc
+CALL TlcdXStop( QT(DOF_TlcdX), QDT(DOF_TlcdX), TlcdXStopFrc ) ! Compute force from TlcdX stop springs and dampers, TlcdXStopFrc
+CALL TlcdYStop( QT(DOF_TlcdY), QDT(DOF_TlcdY), TlcdYStopFrc ) ! Compute force from TlcdY stop springs and dampers, TlcdYStopFrc
 
 !mal End of proposed change.  v6.30a-mal  29-July-2009.
 
@@ -7974,65 +8011,73 @@ ENDIF
 
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal position vector for tmds in nacelle or platform, also replace dotprod with DOT_PRODUCT
+!mal position vector for Tlcds in nacelle or platform, also replace dotprod with DOT_PRODUCT
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
 
-IF ( DOF_Flag (DOF_TmdX ) )  THEN
-   DO I = Diag(DOF_TmdX ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal	  
-      AugMat(SrtPS(I),DOF_TmdX ) = -DOT_PRODUCT( PLinVelETmdX(DOF_TmdX ,0,:), PFrcOTmdX(SrtPS(I),:) )    ! [C(q,t)]TmdX
+IF ( DOF_Flag (DOF_TlcdX ) )  THEN
+   DO I = Diag(DOF_TlcdX ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal	  
+      AugMat(SrtPS(I),DOF_TlcdX ) = -DOT_PRODUCT( PLinVelETlcdX(DOF_TlcdX ,0,:), PFrcOTlcdX(SrtPS(I),:) )   ! [C(q,t)]TlcdX
    ENDDO                            ! I - All active (enabled) DOFs on or below the diagonal
-      AugMat(DOF_TmdX ,    NAUG) =  DOT_PRODUCT( PLinVelETmdX(DOF_TmdX ,0,:), FrcOTmdXt             ) &  ! {-f(qd,q,t)}TmdX + {-f(qd,q,t)}GravTmdX
-                                 -  TmdXSpr *( QT (DOF_TmdX) - TmdXNeut    )                      &  ! + {-f(qd,q,t)}SpringTmdX
-                                -  TmdXDamp*( QDT(DOF_TmdX) )                                     &  ! + {-f(qd,q,t)}DampTmdX; 
-                                -  TmdXFext                                                       &  ! + {-f(qd,q,t)}FextTmdX;
-                                -  TmdXStopFrc                                                       ! + {-f(qd,q,t)}StopTmdX;
+      AugMat(DOF_TlcdX,DOF_TlcdX )= TlcdXAreaRat * AugMat(DOF_TlcdX,DOF_TlcdX ) / (TlcdXMassRat**2) * (TlcdXLenEE / TlcdXLenEM)  !yus correction
+
+      AugMat(DOF_TlcdX,    NAUG) =  TlcdXAreaRat *                                                                     &
+                                    (DOT_PRODUCT( PLinVelETLCDX(DOF_TlcdX ,0,:), FrcOTlcdXt             )              &  ! {-f(qd,q,t)}TlcdX + {-f(qd,q,t)}GravTlcdX
+                                 +   DOT_PRODUCT( Tlcdnx2, -2*TlcdDens*TlcdXVerArea*QT(DOF_TlcdX)*Gravity*z2     )    &  ! + {-f(qd,q,t)}SpringTlcdX                
+                                 -  0.5 *TlcdDens*TlcdXVerArea* TlcdXHdLoss*abs( QDT(DOF_TlcdX) )*QDT(DOF_TlcdX)      &  ! + {-f(qd,q,t)}DampTlcdX; 
+                                 -  TlcdXStopFrc)                                                                        ! + {-f(qd,q,t)}StopTlcdX;
+      
+      
 ENDIF               
 
 CASE ( 2 )              ! platform
 
-IF ( DOF_Flag (DOF_TmdX ) )  THEN
-   DO I = Diag(DOF_TmdX ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal	  
-      AugMat(SrtPS(I),DOF_TmdX ) = -DOT_PRODUCT( PLinVelETmdX(DOF_TmdX ,0,:), PFrcZTmdX(SrtPS(I),:) )    ! [C(q,t)]TmdX
+IF ( DOF_Flag (DOF_TlcdX ) )  THEN
+   DO I = Diag(DOF_TlcdX ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal	  
+      AugMat(SrtPS(I),DOF_TlcdX ) = -DOT_PRODUCT( PLinVelETlcdX(DOF_TlcdX ,0,:), PFrcZTlcdX(SrtPS(I),:) )    ! [C(q,t)]TlcdX
    ENDDO                            ! I - All active (enabled) DOFs on or below the diagonal
-      AugMat(DOF_TmdX ,    NAUG) =  DOT_PRODUCT( PLinVelETmdX(DOF_TmdX ,0,:), FrcZTmdXt             ) &  ! {-f(qd,q,t)}TmdX + {-f(qd,q,t)}GravTmdX
-                                 -  TmdXSpr *( QT (DOF_TmdX) - TmdXNeut    )                      &  ! + {-f(qd,q,t)}SpringTmdX
-                                -  TmdXDamp*( QDT(DOF_TmdX) )                                     &  ! + {-f(qd,q,t)}DampTmdX; 
-                                -  TmdXFext                                                       &  ! + {-f(qd,q,t)}FextTmdX;
-                                -  TmdXStopFrc                                                       ! + {-f(qd,q,t)}StopTmdX;
+      AugMat(DOF_TlcdX,DOF_TlcdX )= TlcdXAreaRat * AugMat(DOF_TlcdX,DOF_TlcdX ) / (TlcdXMassRat**2) * (TlcdXLenEE / TlcdXLenEM)  !yus correction
+      
+      AugMat(DOF_TlcdX ,    NAUG) =  TlcdXAreaRat *                                                                     &
+                                   (DOT_PRODUCT( PLinVelETlcdX(DOF_TlcdX ,0,:), FrcZTlcdXt             )                &  ! {-f(qd,q,t)}TlcdX + {-f(qd,q,t)}GravTlcdX
+                                +   DOT_PRODUCT( Tlcdpx2, -2*TlcdDens*TlcdXVerArea*QT(DOF_TlcdX)*Gravity*z2     )      &  ! + {-f(qd,q,t)}SpringTlcdX
+                                -  0.5 *TlcdDens*TlcdXVerArea* TlcdXHdLoss*abs( QDT(DOF_TlcdX) )*QDT(DOF_TlcdX)        &  ! + {-f(qd,q,t)}DampTlcdX; 
+                                -  TlcdXStopFrc)                                                       ! + {-f(qd,q,t)}StopTlcdX;
 ENDIF                            
 
 ENDSELECT
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
 
-IF ( DOF_Flag (DOF_TmdY ) )  THEN
-   DO I = Diag(DOF_TmdY ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal
-      AugMat(SrtPS(I),DOF_TmdY ) = -DOT_PRODUCT( PLinVelETmdY(DOF_TmdY ,0,:), PFrcOTmdY(SrtPS(I),:) )    ! [C(q,t)]TmdY
+IF ( DOF_Flag (DOF_TlcdY ) )  THEN
+   DO I = Diag(DOF_TlcdY ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal
+      AugMat(SrtPS(I),DOF_TlcdY ) = -DOT_PRODUCT( PLinVelETlcdY(DOF_TlcdY ,0,:), PFrcOTlcdY(SrtPS(I),:) )    ! [C(q,t)]TlcdY
    ENDDO                            ! I - All active (enabled) DOFs on or below the diagonal
-      AugMat(DOF_TmdY ,    NAUG) =  DOT_PRODUCT( PLinVelETmdY(DOF_TmdY ,0,:), FrcOTmdYt             ) &  ! {-f(qd,q,t)}TmdY + {-f(qd,q,t)}GravTmdY
-                                 -  TmdYSpr *( QT (DOF_TmdY) - TmdYNeut    )                      &  ! + {-f(qd,q,t)}SpringTmdY
-                                -  TmdYDamp*( QDT(DOF_TmdY) )                                     &  ! + {-f(qd,q,t)}DampTmdY; 
-                                -  TmdYFext                                                       &  ! + {-f(qd,q,t)}FextTmdY;
-                                -  TmdYStopFrc                                                       ! + {-f(qd,q,t)}StopTmdY;
+      AugMat(DOF_TlcdY,DOF_TlcdY )= TlcdYAreaRat * AugMat(DOF_TlcdY,DOF_TlcdY ) / (TlcdYMassRat**2) * (TlcdYLenEE / TlcdYLenEM)  !yus correction
+      
+      AugMat(DOF_TlcdY ,    NAUG) =  TlcdYAreaRat *                                                                     &
+                                    (DOT_PRODUCT( PLinVelETlcdY(DOF_TlcdY ,0,:), FrcOTlcdYt             )               &  ! {-f(qd,q,t)}TlcdY + {-f(qd,q,t)}GravTlcdY
+                                 +   DOT_PRODUCT( Tlcdny2, -2*TlcdDens*TlcdYVerArea*QT(DOF_TlcdY)*Gravity*z2     )     &  ! + {-f(qd,q,t)}SpringTlcdY
+                                -  0.5 *TlcdDens*TlcdYVerArea* TlcdYHdLoss*abs( QDT(DOF_TlcdY) )*QDT(DOF_TlcdY)        &  ! + {-f(qd,q,t)}DampTlcdY; 
+                                -  TlcdYStopFrc)                                                                           ! + {-f(qd,q,t)}StopTlcdY;
 ENDIF
 
 
 CASE ( 2 )              ! platform
 
-IF ( DOF_Flag (DOF_TmdY ) )  THEN
-   DO I = Diag(DOF_TmdY ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal
-      AugMat(SrtPS(I),DOF_TmdY ) = -DOT_PRODUCT( PLinVelETmdY(DOF_TmdY ,0,:), PFrcZTmdY(SrtPS(I),:) )    ! [C(q,t)]TmdY
+IF ( DOF_Flag (DOF_TlcdY ) )  THEN
+   DO I = Diag(DOF_TlcdY ),NActvDOF   ! Loop through all active (enabled) DOFs on or below the diagonal
+      AugMat(SrtPS(I),DOF_TlcdY ) = -DOT_PRODUCT( PLinVelETlcdY(DOF_TlcdY ,0,:), PFrcZTlcdY(SrtPS(I),:) )    ! [C(q,t)]TlcdY
    ENDDO                            ! I - All active (enabled) DOFs on or below the diagonal
-      AugMat(DOF_TmdY ,    NAUG) =  DOT_PRODUCT( PLinVelETmdY(DOF_TmdY ,0,:), FrcZTmdYt             ) &  ! {-f(qd,q,t)}TmdY + {-f(qd,q,t)}GravTmdY
-                                 -  TmdYSpr *( QT (DOF_TmdY) - TmdYNeut    )                      &  ! + {-f(qd,q,t)}SpringTmdY
-                                -  TmdYDamp*( QDT(DOF_TmdY) )                                     &  ! + {-f(qd,q,t)}DampTmdY; 
-                                -  TmdYFext                                                       &  ! + {-f(qd,q,t)}FextTmdY;
-                                -  TmdYStopFrc                                                       ! + {-f(qd,q,t)}StopTmdY;
+      AugMat(DOF_TlcdY ,    NAUG) =   TlcdYAreaRat *                                                                     &
+                                    (DOT_PRODUCT( PLinVelETlcdY(DOF_TlcdY ,0,:), FrcZTlcdYt             )                &  ! {-f(qd,q,t)}TlcdY + {-f(qd,q,t)}GravTlcdY
+                                 +   DOT_PRODUCT( Tlcdny2, -2*TlcdDens*TlcdYVerArea*QT(DOF_TlcdY)*Gravity*z2     )      &  ! + {-f(qd,q,t)}SpringTlcdY
+                                -  0.5 *TlcdDens*TlcdYVerArea* TlcdYHdLoss*abs( QDT(DOF_TlcdY) )*QDT(DOF_TlcdY)         &  ! + {-f(qd,q,t)}DampTlcdY; 
+                                -  TlcdYStopFrc)                                                       ! + {-f(qd,q,t)}StopTlcdY;
 ENDIF
 ENDSELECT
 
@@ -8275,8 +8320,8 @@ USE                             TurbConf
 USE                             TurbCont
 
 !mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal use the TMD module
-USE                             TMD
+!mal use the Tlcd module
+USE                             Tlcd
 !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
 IMPLICIT                        NONE
@@ -8319,14 +8364,17 @@ REAL(ReKi)                   :: TransMat  (3,3)                                 
 
 
 !mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal tmd orientation angles
-REAL(ReKi)                   :: CTmdXAngle                                         ! COS( tmdX angle ).
-REAL(ReKi)                   :: STmdXAngle                                         ! SIN( tmdX angle ).
+!mal Tlcd orientation angles
+REAL(ReKi)                   :: CTlcdXAngle                                         ! COS( TlcdX angle ).
+REAL(ReKi)                   :: STlcdXAngle                                         ! SIN( TlcdX angle ).
 
-REAL(ReKi)                   :: CTmdYAngle                                         ! COS( tmdY angle ).
-REAL(ReKi)                   :: STmdYAngle                                         ! SIN( tmdY angle ).
+REAL(ReKi)                   :: CTlcdYAngle                                         ! COS( TlcdY angle ).
+REAL(ReKi)                   :: STlcdYAngle                                         ! SIN( TlcdY angle ).
 
 !mal End of proposed change.  v7.10a-mal  18-July-2012.
+
+
+
 
 INTEGER(4)                   :: J                                               ! Loops through nodes / elements.
 INTEGER(4)                   :: K                                               ! Loops through blades.
@@ -8390,44 +8438,44 @@ d3 = SNacYaw*b1 + CNacYaw*b3     ! Vector / direction d3 (= -yn from the IEC coo
 
 
 !mal Start of proposed change.  v7.10a-mal  18-July-2012.
-!mal add in tmd coordinate system
+!mal add in Tlcd coordinate system
 
-    ! TMDX nacelle coordinate system:
+    ! TlcdX nacelle coordinate system:
 
-    CTmdXAngle  = COS( TmdXAngle*Pi/180)
-    STmdXAngle  = SIN( TmdXAngle*Pi/180)
+    CTlcdXAngle  = COS( TlcdXAngle*Pi/180)
+    STlcdXAngle  = SIN( TlcdXAngle*Pi/180)
 
 !yus Start of proposed change.  7-April-2013.
-!    tmdnx1 = CTmdXAngle*d1 - STmdXAngle*d3     ! Vector / direction tmdn1 (=  xn from the IEC coord. system).
-!    tmdnx2 = d2                          ! Vector / direction tmdn2 (=  zn from the IEC coord. system).
-!    tmdnx3 = STmdXAngle*d1 + CTmdXAngle*d3     ! Vector / direction tmdn3 (= -yn from the IEC coord. system).
-    tmdnx1 = CTmdXAngle*d1 - STmdXAngle*d2     
-    tmdnx2 = STmdXAngle*d1 + CTmdXAngle*d2                          
-    tmdnx3 = d3    
-    ! TMD platform coordinate system:
+!    Tlcdnx1 = CTlcdXAngle*d1 - STlcdXAngle*d3     ! Vector / direction Tlcdn1 (=  xn from the IEC coord. system).
+!    Tlcdnx2 = d2                          ! Vector / direction Tlcdn2 (=  zn from the IEC coord. system).
+!    Tlcdnx3 = STlcdXAngle*d1 + CTlcdXAngle*d3     ! Vector / direction Tlcdn3 (= -yn from the IEC coord. system).
+    Tlcdnx1 = CTlcdXAngle*d1 - STlcdXAngle*d2     
+    Tlcdnx2 = STlcdXAngle*d1 + CTlcdXAngle*d2                          
+    Tlcdnx3 = d3    
+    ! Tlcd platform coordinate system:
 
-!    tmdpx1 = CTmdXAngle*a1 - STmdXAngle*a3     
-!    tmdpx2 = a2                         
-!    tmdpx3 = STmdXAngle*a1 + CTmdXAngle*a3  
-    tmdpx1 = CTmdXAngle*a1 - STmdXAngle*a2     
-    tmdpx2 = STmdXAngle*a1 + CTmdXAngle*a2                          
-    tmdpx3 = a3  
+!    Tlcdpx1 = CTlcdXAngle*a1 - STlcdXAngle*a3     
+!    Tlcdpx2 = a2                         
+!    Tlcdpx3 = STlcdXAngle*a1 + CTlcdXAngle*a3  
+    Tlcdpx1 = CTlcdXAngle*a1 - STlcdXAngle*a2     
+    Tlcdpx2 = STlcdXAngle*a1 + CTlcdXAngle*a2                          
+    Tlcdpx3 = a3  
 !yus End of proposed change.  7-April-2013.
 
-    ! TMDY nacelle coordinate system:
+    ! TlcdY nacelle coordinate system:
 
-    CTmdYAngle  = COS( TmdYAngle*Pi/180)
-    STmdYAngle  = SIN( TmdYAngle*Pi/180)
+    CTlcdYAngle  = COS( TlcdYAngle*Pi/180)
+    STlcdYAngle  = SIN( TlcdYAngle*Pi/180)
 
-    tmdny1 = CTmdYAngle*d1 - STmdYAngle*d3     ! Vector / direction tmdn1 (=  xn from the IEC coord. system).
-    tmdny2 = d2                          ! Vector / direction tmdn2 (=  zn from the IEC coord. system).
-    tmdny3 = STmdYAngle*d1 + CTmdYAngle*d3     ! Vector / direction tmdn3 (= -yn from the IEC coord. system).
+    Tlcdny1 = CTlcdYAngle*d1 - STlcdYAngle*d3     ! Vector / direction Tlcdn1 (=  xn from the IEC coord. system).
+    Tlcdny2 = d2                          ! Vector / direction Tlcdn2 (=  zn from the IEC coord. system).
+    Tlcdny3 = STlcdYAngle*d1 + CTlcdYAngle*d3     ! Vector / direction Tlcdn3 (= -yn from the IEC coord. system).
 
-    ! TMD platform coordinate system:
+    ! Tlcd platform coordinate system:
 
-    tmdpy1 = CTmdYAngle*a1 - STmdYAngle*a3     
-    tmdpy2 = a2                         
-    tmdpy3 = STmdYAngle*a1 + CTmdYAngle*a3     
+    Tlcdpy1 = CTlcdYAngle*a1 - STlcdYAngle*a3     
+    Tlcdpy2 = a2                         
+    Tlcdpy3 = STlcdYAngle*a1 + CTlcdYAngle*a3     
 
 !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
@@ -8643,8 +8691,8 @@ USE                             DOFs
 USE                             TurbConf
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include counter variable for the TMDs
-USE                             TMD
+!mal include counter variable for the Tlcds
+USE                             Tlcd
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 IMPLICIT                        NONE
@@ -8672,9 +8720,9 @@ NPYE     = 0
 
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include counter variable for the TMDs
-NPTmdXE  = 0
-NPTmdYE  = 0
+!mal include counter variable for the Tlcds
+NPTlcdXE  = 0
+NPTlcdYE  = 0
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
    ! Test each DOF and include the appropriate indices in the subscript arrays
@@ -8702,12 +8750,12 @@ IF ( DOF_Flag(DOF_Sg  ) )  THEN  ! Platform surge.
 
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include TMD counters and pointers
-   NPTmdXE     = NPTmdXE     + 1
-   NPTmdYE     = NPTmdYE     + 1
+!mal include Tlcd counters and pointers
+   NPTlcdXE     = NPTlcdXE     + 1
+   NPTlcdYE     = NPTlcdYE     + 1
    
-   PTmdXE    (  NPTmdXE    ) = DOF_Sg
-   PTmdYE    (  NPTmdYE    ) = DOF_Sg
+   PTlcdXE    (  NPTlcdXE    ) = DOF_Sg
+   PTlcdYE    (  NPTlcdYE    ) = DOF_Sg
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 ENDIF
@@ -8735,12 +8783,12 @@ IF ( DOF_Flag(DOF_Sw  ) )  THEN  ! Platform sway.
 
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include TMD counters and pointers
-   NPTmdXE     = NPTmdXE     + 1
-   NPTmdYE     = NPTmdYE     + 1
+!mal include Tlcd counters and pointers
+   NPTlcdXE     = NPTlcdXE     + 1
+   NPTlcdYE     = NPTlcdYE     + 1
    
-   PTmdXE    (  NPTmdXE    ) = DOF_Sw
-   PTmdYE    (  NPTmdYE    ) = DOF_Sw
+   PTlcdXE    (  NPTlcdXE    ) = DOF_Sw
+   PTlcdYE    (  NPTlcdYE    ) = DOF_Sw
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 ENDIF
@@ -8767,12 +8815,12 @@ IF ( DOF_Flag(DOF_Hv  ) )  THEN  ! Platform heave.
     PYE    (  NPYE    ) = DOF_Hv
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include TMD counters and pointers
-   NPTmdXE     = NPTmdXE     + 1
-   NPTmdYE     = NPTmdYE     + 1
+!mal include Tlcd counters and pointers
+   NPTlcdXE     = NPTlcdXE     + 1
+   NPTlcdYE     = NPTlcdYE     + 1
    
-   PTmdXE    (  NPTmdXE    ) = DOF_Hv
-   PTmdYE    (  NPTmdYE    ) = DOF_Hv
+   PTlcdXE    (  NPTlcdXE    ) = DOF_Hv
+   PTlcdYE    (  NPTlcdYE    ) = DOF_Hv
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 ENDIF
@@ -8799,12 +8847,12 @@ IF ( DOF_Flag(DOF_R   ) )  THEN  ! Platform roll.
     PYE    (  NPYE    ) = DOF_R
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include TMD counters and pointers
-   NPTmdXE     = NPTmdXE     + 1
-   NPTmdYE     = NPTmdYE     + 1
+!mal include Tlcd counters and pointers
+   NPTlcdXE     = NPTlcdXE     + 1
+   NPTlcdYE     = NPTlcdYE     + 1
    
-   PTmdXE    (  NPTmdXE    ) = DOF_R
-   PTmdYE    (  NPTmdYE    ) = DOF_R
+   PTlcdXE    (  NPTlcdXE    ) = DOF_R
+   PTlcdYE    (  NPTlcdYE    ) = DOF_R
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 ENDIF
@@ -8831,12 +8879,12 @@ IF ( DOF_Flag(DOF_P   ) )  THEN  ! Platform pitch.
     PYE    (  NPYE    ) = DOF_P
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include TMD counters and pointers
-   NPTmdXE     = NPTmdXE     + 1
-   NPTmdYE     = NPTmdYE     + 1
+!mal include Tlcd counters and pointers
+   NPTlcdXE     = NPTlcdXE     + 1
+   NPTlcdYE     = NPTlcdYE     + 1
    
-   PTmdXE    (  NPTmdXE    ) = DOF_P
-   PTmdYE    (  NPTmdYE    ) = DOF_P
+   PTlcdXE    (  NPTlcdXE    ) = DOF_P
+   PTlcdYE    (  NPTlcdYE    ) = DOF_P
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 ENDIF
@@ -8863,12 +8911,12 @@ IF ( DOF_Flag(DOF_Y   ) )  THEN  ! Platform yaw.
     PYE    (  NPYE    ) = DOF_Y
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal include TMD counters and pointers
-   NPTmdXE     = NPTmdXE     + 1
-   NPTmdYE     = NPTmdYE     + 1
+!mal include Tlcd counters and pointers
+   NPTlcdXE     = NPTlcdXE     + 1
+   NPTlcdYE     = NPTlcdYE     + 1
    
-   PTmdXE    (  NPTmdXE    ) = DOF_Y
-   PTmdYE    (  NPTmdYE    ) = DOF_Y
+   PTlcdXE    (  NPTlcdXE    ) = DOF_Y
+   PTlcdYE    (  NPTlcdYE    ) = DOF_Y
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
 ENDIF
@@ -8896,21 +8944,21 @@ IF ( DOF_Flag(DOF_TFA1) )  THEN  ! 1st tower fore-aft.
 
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal include TMD counters and pointers
+!mal include Tlcd counters and pointers
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdXE     = NPTmdXE     + 1
-   PTmdXE    (  NPTmdXE    ) = DOF_TFA1
+   NPTlcdXE     = NPTlcdXE     + 1
+   PTlcdXE    (  NPTlcdXE    ) = DOF_TFA1
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdYE     = NPTmdYE     + 1  
-   PTmdYE    (  NPTmdYE    ) = DOF_TFA1
+   NPTlcdYE     = NPTlcdYE     + 1  
+   PTlcdYE    (  NPTlcdYE    ) = DOF_TFA1
 ENDSELECT
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
@@ -8939,21 +8987,21 @@ IF ( DOF_Flag(DOF_TSS1) )  THEN  ! 1st tower side-to-side.
     PUE    (  NPUE    ) = DOF_TSS1
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal include TMD counters and pointers
+!mal include Tlcd counters and pointers
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdXE     = NPTmdXE     + 1
-   PTmdXE    (  NPTmdXE    ) = DOF_TSS1
+   NPTlcdXE     = NPTlcdXE     + 1
+   PTlcdXE    (  NPTlcdXE    ) = DOF_TSS1
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdYE     = NPTmdYE     + 1  
-   PTmdYE    (  NPTmdYE    ) = DOF_TSS1
+   NPTlcdYE     = NPTlcdYE     + 1  
+   PTlcdYE    (  NPTlcdYE    ) = DOF_TSS1
 ENDSELECT
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
@@ -8982,21 +9030,21 @@ IF ( DOF_Flag(DOF_TFA2) )  THEN  ! 2nd tower fore-aft.
     PUE    (  NPUE    ) = DOF_TFA2
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal include TMD counters and pointers
+!mal include Tlcd counters and pointers
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdXE     = NPTmdXE     + 1
-   PTmdXE    (  NPTmdXE    ) = DOF_TFA2
+   NPTlcdXE     = NPTlcdXE     + 1
+   PTlcdXE    (  NPTlcdXE    ) = DOF_TFA2
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdYE     = NPTmdYE     + 1   
-   PTmdYE    (  NPTmdYE    ) = DOF_TFA2
+   NPTlcdYE     = NPTlcdYE     + 1   
+   PTlcdYE    (  NPTlcdYE    ) = DOF_TFA2
 ENDSELECT
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
@@ -9025,21 +9073,21 @@ IF ( DOF_Flag(DOF_TSS2) )  THEN  ! 2nd tower side-to-side.
     PUE    (  NPUE    ) = DOF_TSS2
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal include TMD counters and pointers
+!mal include Tlcd counters and pointers
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdXE     = NPTmdXE     + 1
-   PTmdXE    (  NPTmdXE    ) = DOF_TSS2
+   NPTlcdXE     = NPTlcdXE     + 1
+   PTlcdXE    (  NPTlcdXE    ) = DOF_TSS2
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdYE     = NPTmdYE     + 1   
-   PTmdYE    (  NPTmdYE    ) = DOF_TSS2
+   NPTlcdYE     = NPTlcdYE     + 1   
+   PTlcdYE    (  NPTlcdYE    ) = DOF_TSS2
 ENDSELECT
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
@@ -9064,21 +9112,21 @@ IF ( DOF_Flag(DOF_Yaw ) )  THEN  ! Nacelle yaw.
     PUE    (  NPUE    ) = DOF_Yaw
 
 !mal Start of proposed change.  v6.40a-mal  10-Oct-2009.
-!mal include TMD counters and pointers
+!mal include Tlcd counters and pointers
 
-SELECT CASE ( TmdXLoc ) ! Which tmdx location?
+SELECT CASE ( TlcdXLoc ) ! Which Tlcdx location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdXE     = NPTmdXE     + 1
-   PTmdXE    (  NPTmdXE    ) = DOF_Yaw
+   NPTlcdXE     = NPTlcdXE     + 1
+   PTlcdXE    (  NPTlcdXE    ) = DOF_Yaw
 ENDSELECT
 
 
-SELECT CASE ( TmdYLoc ) ! Which tmdy location?
+SELECT CASE ( TlcdYLoc ) ! Which Tlcdy location?
 
 CASE ( 1 )              ! nacelle
-   NPTmdYE     = NPTmdYE     + 1   
-   PTmdYE    (  NPTmdYE    ) = DOF_Yaw
+   NPTlcdYE     = NPTlcdYE     + 1   
+   PTlcdYE    (  NPTlcdYE    ) = DOF_Yaw
 ENDSELECT
 
 !mal End of proposed change.  v6.40a-mal  10-Oct-2009.
@@ -9198,25 +9246,25 @@ DO K = 1,NumBl ! Loop through all blades
 ENDDO          ! K - Blades
 
 !mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal add TmdX and TmdY DOF
+!mal add TlcdX and TlcdY DOF
 
-IF ( DOF_Flag(DOF_TmdX) )  THEN  ! TmdX.
+IF ( DOF_Flag(DOF_TlcdX) )  THEN  ! TlcdX.
 
    NActvDOF = NActvDOF + 1
-   NPTmdXE  = NPTmdXE  + 1
+   NPTlcdXE  = NPTlcdXE  + 1
 
-    PS     (  NActvDOF) = DOF_TmdX
-    PTmdXE (  NPTmdXE ) = DOF_TmdX
+    PS     (  NActvDOF) = DOF_TlcdX
+    PTlcdXE (  NPTlcdXE ) = DOF_TlcdX
 
 ENDIF
 
-IF ( DOF_Flag(DOF_TmdY) )  THEN  ! TmdY.
+IF ( DOF_Flag(DOF_TlcdY) )  THEN  ! TlcdY.
 
    NActvDOF = NActvDOF + 1
-   NPTmdYE  = NPTmdYE  + 1
+   NPTlcdYE  = NPTlcdYE  + 1
 
-    PS     (  NActvDOF) = DOF_TmdY
-    PTmdYE (  NPTmdYE ) = DOF_TmdY
+    PS     (  NActvDOF) = DOF_TlcdY
+    PTlcdYE (  NPTlcdYE ) = DOF_TlcdY
 
 ENDIF
 
@@ -9926,20 +9974,20 @@ END SUBROUTINE TwrLoading
 !=======================================================================
 
 !mal Start of proposed change.  v6.30a-mal  29-July-2009.
-!mal new subroutine for TMD stops
+!mal new subroutine for Tlcd stops
 
 !=======================================================================
-SUBROUTINE TmdXStop( TmdXPos, TmdXRate, TmdXStopFrc )
+SUBROUTINE TlcdXStop( TlcdXPos, TlcdXRate, TlcdXStopFrc )
 
 
-   ! This routine computes the stop force due to TmdX displacement
+   ! This routine computes the stop force due to TlcdX displacement
    !   and rate.  
 
 
 USE                             General
 USE                             Precision
 USE                             SimCont
-USE                             TMD
+USE                             Tlcd
 
 
 IMPLICIT                        NONE
@@ -9947,62 +9995,62 @@ IMPLICIT                        NONE
 
    ! Passed Variables:
 
-REAL(ReKi), INTENT(IN )      :: TmdXPos                                         ! The Tmd displacement, QT(DOF_TmdX).
-REAL(ReKi), INTENT(OUT)      :: TmdXStopFrc                                     ! The total force supplied by the springs, and dampers.
-REAL(ReKi), INTENT(IN )      :: TmdXRate                                        ! The TmdX rate, QDT(DOF_TmdX).
+REAL(ReKi), INTENT(IN )      :: TlcdXPos                                         ! The Tlcd displacement, QT(DOF_TlcdX).
+REAL(ReKi), INTENT(OUT)      :: TlcdXStopFrc                                     ! The total force supplied by the springs, and dampers.
+REAL(ReKi), INTENT(IN )      :: TlcdXRate                                        ! The TlcdX rate, QDT(DOF_TlcdX).
 
 
    ! Local variables:
 
-REAL(ReKi)                   :: TmdXSDFrc                                        ! The force supplied by the stop dampers.
-REAL(ReKi)                   :: TmdXSSFrc                                        ! The force supplied by the stop springs.
+REAL(ReKi)                   :: TlcdXSDFrc                                        ! The force supplied by the stop dampers.
+REAL(ReKi)                   :: TlcdXSSFrc                                        ! The force supplied by the stop springs.
 
 
    ! initialize force variables
 
-TmdXSDFrc = 0
-TmdXSSFrc = 0
-TmdXStopFrc = 0
+TlcdXSDFrc = 0
+TlcdXSSFrc = 0
+TlcdXStopFrc = 0
 
 
 
    ! Add spring-stops:
 
-   IF ( TmdXPos > TmdXDWSP )  THEN       ! Downwind-stop (positive TMD deflection)
-      TmdXSSFrc = TmdXSSpr*( TmdXPos - TmdXDWSP )
-   ELSEIF ( TmdXPos < TmdXUWSP )  THEN   ! Upwind-stop (negative TMD deflection)
-      TmdXSSFrc = TmdXSSpr*( TmdXPos - TmdXUWSP )
+   IF ( TlcdXPos > (TlcdXLen-TlcdXHorLen)/2 )  THEN       ! Downwind-stop (positive Tlcd deflection)
+      TlcdXSSFrc = TlcdXSSpr*( TlcdXPos - (TlcdXLen-TlcdXHorLen)/2 )
+   ELSEIF ( TlcdXPos < -(TlcdXLen-TlcdXHorLen)/2 )  THEN   ! Upwind-stop (negative Tlcd deflection)
+      TlcdXSSFrc = TlcdXSSpr*( TlcdXPos + (TlcdXLen-TlcdXHorLen)/2 )
    ENDIF
 
 
    ! Add damper-stops:
 
-   IF ( (TmdXPos > TmdXDWSP) .AND. (TmdXRate > 0) )  THEN       ! Downwind-stop (positive TMD deflection)
-      TmdXSDFrc = TmdXSDamp*( TmdXRate )
-   ELSEIF ( (TmdXPos < TmdXUWSP) .AND. (TmdXRate < 0) )  THEN   ! Upwind-stop (negative TMD deflection)
-      TmdXSDFrc = TmdXSDamp*( TmdXRate )
+   IF ( (TlcdXPos > (TlcdXLen-TlcdXHorLen)/2) .AND. (TlcdXRate > 0) )  THEN       ! Downwind-stop (positive Tlcd deflection)
+      TlcdXSDFrc = TlcdXSDamp*( TlcdXRate )
+   ELSEIF ( (TlcdXPos < -(TlcdXLen-TlcdXHorLen)/2) .AND. (TlcdXRate < 0) )  THEN   ! Upwind-stop (negative Tlcd deflection)
+      TlcdXSDFrc = TlcdXSDamp*( TlcdXRate )
    ENDIF
 
 
    ! Total up all the forces.
 
-   TmdXStopFrc = TmdXSSFrc + TmdXSDFrc
+   TlcdXStopFrc = TlcdXSSFrc + TlcdXSDFrc
 
 
 RETURN
-END SUBROUTINE TmdXStop
+END SUBROUTINE TlcdXStop
 !=======================================================================
-SUBROUTINE TmdYStop( TmdYPos, TmdYRate, TmdYStopFrc )
+SUBROUTINE TlcdYStop( TlcdYPos, TlcdYRate, TlcdYStopFrc )
 
 
-   ! This routine computes the stop force due to TmdY displacement
+   ! This routine computes the stop force due to TlcdY displacement
    !   and rate.  
 
 
 USE                             General
 USE                             Precision
 USE                             SimCont
-USE                             TMD
+USE                             Tlcd
 
 
 IMPLICIT                        NONE
@@ -10010,50 +10058,50 @@ IMPLICIT                        NONE
 
    ! Passed Variables:
 
-REAL(ReKi), INTENT(IN )      :: TmdYPos                                         ! The Tmd displacement, QT(DOF_TmdY).
-REAL(ReKi), INTENT(OUT)      :: TmdYStopFrc                                     ! The total force supplied by the springs, and dampers.
-REAL(ReKi), INTENT(IN )      :: TmdYRate                                        ! The TmdY rate, QDT(DOF_TmdY).
+REAL(ReKi), INTENT(IN )      :: TlcdYPos                                         ! The Tlcd displacement, QT(DOF_TlcdY).
+REAL(ReKi), INTENT(OUT)      :: TlcdYStopFrc                                     ! The total force supplied by the springs, and dampers.
+REAL(ReKi), INTENT(IN )      :: TlcdYRate                                        ! The TlcdY rate, QDT(DOF_TlcdY).
 
 
    ! Local variables:
 
-REAL(ReKi)                   :: TmdYSDFrc                                        ! The force supplied by the stop dampers.
-REAL(ReKi)                   :: TmdYSSFrc                                        ! The force supplied by the stop springs.
+REAL(ReKi)                   :: TlcdYSDFrc                                        ! The force supplied by the stop dampers.
+REAL(ReKi)                   :: TlcdYSSFrc                                        ! The force supplied by the stop springs.
 
 
    ! initialize force variables
 
-TmdYSDFrc = 0
-TmdYSSFrc = 0
-TmdYStopFrc = 0
+TlcdYSDFrc = 0
+TlcdYSSFrc = 0
+TlcdYStopFrc = 0
 
 
 
    ! Add spring-stops:
 
-   IF ( TmdYPos > TmdYPLSP )  THEN       ! postitive lateral-stop (positive TMD deflection)
-      TmdYSSFrc = TmdYSSpr*( TmdYPos - TmdYPLSP )
-   ELSEIF ( TmdYPos < TmdYNLSP )  THEN   ! negative lateral-stop (negative TMD deflection)
-      TmdYSSFrc = TmdYSSpr*( TmdYPos - TmdYNLSP )
+   IF ( TlcdYPos >  (TlcdYLen-TlcdYHorLen)/2 )  THEN       ! postitive lateral-stop (positive Tlcd deflection)
+      TlcdYSSFrc = TlcdYSSpr*( TlcdYPos -  (TlcdYLen-TlcdYHorLen)/2 )
+   ELSEIF ( TlcdYPos < -(TlcdYLen-TlcdYHorLen)/2 )  THEN   ! negative lateral-stop (negative Tlcd deflection)
+      TlcdYSSFrc = TlcdYSSpr*( TlcdYPos +  (TlcdYLen-TlcdYHorLen)/2 )
    ENDIF
 
 
    ! Add damper-stops:
 
-   IF ( (TmdYPos > TmdYPLSP) .AND. (TmdYRate > 0) )  THEN       ! postitive lateral-stop (positive TMD deflection)
-      TmdYSDFrc = TmdYSDamp*( TmdYRate )
-   ELSEIF ( TmdYPos < TmdYNLSP .AND. (TmdYRate < 0) )  THEN   ! negative lateral-stop (negative TMD deflection)
-      TmdYSDFrc = TmdYSDamp*( TmdYRate )
+   IF ( (TlcdYPos >  (TlcdYLen-TlcdYHorLen)/2) .AND. (TlcdYRate > 0) )  THEN       ! postitive lateral-stop (positive Tlcd deflection)
+      TlcdYSDFrc = TlcdYSDamp*( TlcdYRate )
+   ELSEIF ( TlcdYPos <  -(TlcdYLen-TlcdYHorLen)/2 .AND. (TlcdYRate < 0) )  THEN   ! negative lateral-stop (negative Tlcd deflection)
+      TlcdYSDFrc = TlcdYSDamp*( TlcdYRate )
    ENDIF
 
 
       ! Total up all the forces.
 
-   TmdYStopFrc = TmdYSSFrc + TmdYSDFrc
+   TlcdYStopFrc = TlcdYSSFrc + TlcdYSDFrc
 
 
 RETURN
-END SUBROUTINE TmdYStop
+END SUBROUTINE TlcdYStop
 !=======================================================================
 
 !mal End of proposed change.  v6.30a-mal  29-July-2009.

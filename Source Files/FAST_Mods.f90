@@ -559,11 +559,11 @@ REAL(ReKi)                   :: TeetDefl  = 0.0                                 
 
 !yus Start of proposed change. 1-Dec-2014
 !yus Include initial liquid displacement of the TLCDs
-REAL(ReKi)                   :: TlcdXDsp   = 0.0                                ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdXDspInit = 0.0                              ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdXDsp   = 0.0                                ! Initial or fixed displacement of the liquid in vertical column of axial TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdXDspInit = 0.0                              ! Initial or fixed displacement of the liquid in vertical column of axial TLCD. (Initialized to zero b/c not all models use a TLCD)
 
-REAL(ReKi)                   :: TlcdYDsp   = 0.0                                ! Initial or fixed displacement of the transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
-REAL(ReKi)                   :: TlcdYDspInit = 0.0                              ! Initial or fixed displacement of the axial TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdYDsp   = 0.0                                ! Initial or fixed displacement of the liquid in vertical column of transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
+REAL(ReKi)                   :: TlcdYDspInit = 0.0                              ! Initial or fixed displacement of the liquid in vertical column of transverse TLCD. (Initialized to zero b/c not all models use a TLCD)
 !yus End of proposed change. 1-Dec-2014
 
 
@@ -578,8 +578,8 @@ REAL(ReKi)                   :: TlcdYHdLossInit = 0.0                           
 !yus Start of proposed change. 1-Dec-2014
 !yus initialize orientation angle
 
-!REAL(ReKi)                   :: TlcdXAngleInit  = 0.0                             ! Initial or fixed TmdX rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a TMD)
-!REAL(ReKi)                   :: TlcdYAngleInit  = 0.0                             ! Initial or fixed TmdY rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a TMD)
+REAL(ReKi)                   :: TlcdXAngleInit  = 0.0                             ! Initial or fixed TlcdX rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a Tlcd)
+REAL(ReKi)                   :: TlcdYAngleInit  = 0.0                             ! Initial or fixed TlcdY rotation angle about vertical axis in degrees (Initialized to zero b/c not all models use a Tlcd)
 
 !yus End of proposed change.
 
@@ -663,6 +663,7 @@ REAL(ReKi)                   :: TurbMass                                        
 REAL(ReKi)                   :: TwrMass                                         ! Mass of tower.
 REAL(ReKi)                   :: TwrTpMass                                       ! Tower-top mass (rotor + nacelle).
 REAL(ReKi)                   :: YawBrMass                                       ! Yaw bearing mass.
+
 !yus Start of proposed change.  1-Dec-2014.
 !yus Add variables for the mass properties of the two TLCDs.
 REAL(ReKi)                   :: TlcdXMass= 0.0                                 ! TlcdX mass. (Initialized to zero b/c not all models will use a Tlcd)
@@ -1934,83 +1935,24 @@ USE                             NWTC_Library
 
 
 !yus Start of proposed change. 1-Dec-2014.
-!yus Add output parameters for the position, velocity, and acceleration of the mass center of two TLCDs.
-!yus The TLCDs are defined so that they can only move in one direction, so there are only three output variable for each.  
+!yus Add output parameters for the position, velocity, and acceleration of the TLCDs.
+   
+! TLCDs:
 
-   ! TLCDs:
-
-INTEGER(4), PARAMETER        :: TlcdXDxn              = 987
-INTEGER(4), PARAMETER        :: TlcdXDyn              = 988
-INTEGER(4), PARAMETER        :: TlcdXDzn              = 989
-
-INTEGER(4), PARAMETER        :: TlcdXVxn              = 990
-INTEGER(4), PARAMETER        :: TlcdXVyn              = 991
-INTEGER(4), PARAMETER        :: TlcdXVzn              = 992
-
-INTEGER(4), PARAMETER        :: TlcdXAxn              = 993
-INTEGER(4), PARAMETER        :: TlcdXAyn              = 994
-INTEGER(4), PARAMETER        :: TlcdXAzn              = 995
-
-INTEGER(4), PARAMETER        :: TlcdYDxn              = 996
-INTEGER(4), PARAMETER        :: TlcdYDyn              = 997
-INTEGER(4), PARAMETER        :: TlcdYDzn              = 998
-
-INTEGER(4), PARAMETER        :: TlcdYVxn              = 999
-INTEGER(4), PARAMETER        :: TlcdYVyn              =1000
-INTEGER(4), PARAMETER        :: TlcdYVzn              =1001
-
-INTEGER(4), PARAMETER        :: TlcdYAxn              =1002
-INTEGER(4), PARAMETER        :: TlcdYAyn              =1003
-INTEGER(4), PARAMETER        :: TlcdYAzn              =1004
-
-!yus End of proposed change. 
+   INTEGER(4), PARAMETER        :: Q_TlcdX      = 987
+   INTEGER(4), PARAMETER        :: QD_TlcdX     = 988
+   INTEGER(4), PARAMETER        :: QD2_TlcdX    = 989
 
 
-!yus Start of proposed change.  1-Dec-2014.
-!yus add additional output parameters for the TLCD if it is in the platform instead of nacelle
-
-INTEGER(4), PARAMETER        :: TlcdXDxt              =1005
-INTEGER(4), PARAMETER        :: TlcdXDyt              =1006
-INTEGER(4), PARAMETER        :: TlcdXDzt              =1007
-
-INTEGER(4), PARAMETER        :: TlcdXVxt              =1008
-INTEGER(4), PARAMETER        :: TlcdXVyt              =1009
-INTEGER(4), PARAMETER        :: TlcdXVzt              =1010
-
-INTEGER(4), PARAMETER        :: TlcdXAxt              =1011
-INTEGER(4), PARAMETER        :: TlcdXAyt              =1012
-INTEGER(4), PARAMETER        :: TlcdXAzt              =1013
-
-INTEGER(4), PARAMETER        :: TlcdYDxt              =1014
-INTEGER(4), PARAMETER        :: TlcdYDyt              =1015
-INTEGER(4), PARAMETER        :: TlcdYDzt              =1016
-
-INTEGER(4), PARAMETER        :: TlcdYVxt              =1017
-INTEGER(4), PARAMETER        :: TlcdYVyt              =1018
-INTEGER(4), PARAMETER        :: TlcdYVzt              =1019
-
-INTEGER(4), PARAMETER        :: TlcdYAxt              =1020
-INTEGER(4), PARAMETER        :: TlcdYAyt              =1021
-INTEGER(4), PARAMETER        :: TlcdYAzt              =1022
-
-!yus End of proposed change.
+   INTEGER(4), PARAMETER        :: Q_TlcdY      = 990
+   INTEGER(4), PARAMETER        :: QD_TlcdY     = 991
+   INTEGER(4), PARAMETER        :: QD2_TlcdY    = 992
 
 
-!yus Start of proposed change.  1-Dec-2014.
-!yus Add additional output parameters for the liquid relative displacement in the vertical columns
-! For nacelle
-INTEGER(4), PARAMETER        :: TlcdXColDn             = 1023
-INTEGER(4), PARAMETER        :: TlcdXColVn             = 1024
-INTEGER(4), PARAMETER        :: TlcdXColAn             = 1025
-
-! For platform
-INTEGER(4), PARAMETER        :: TlcdXColDt             = 1026
-INTEGER(4), PARAMETER        :: TlcdXColVt             = 1027
-INTEGER(4), PARAMETER        :: TlcdXColAt             = 1028
    
      ! The maximum number of output channels which can be output by the code.
-   INTEGER, PARAMETER        :: MaxOutPts            =1028
-!yus End of proposed change. 
+   INTEGER, PARAMETER        :: MaxOutPts       = 992
+!yus End of proposed change. 1-Dec-2014.
 
 
 !End of code generated by Matlab script
@@ -2582,7 +2524,7 @@ END MODULE TipBrakes
 !yus Start of proposed change.  1-Dec-2014.
 !yus Add a module for the TLCD properties
 !=======================================================================
-MODULE TLCD
+MODULE Tlcd
 
 
    ! This MODULE stores input variables for TLCDs.
@@ -2590,46 +2532,77 @@ MODULE TLCD
 
 USE                             Precision
 
-REAL(ReKi)                   :: TlcdXRefxnt                                        ! Downwind distance from tower-top to TlcdX CM.
-REAL(ReKi)                   :: TlcdXRefynt                                        ! Lateral  distance from tower-top to TlcdX CM.
-REAL(ReKi)                   :: TlcdXRefznt                                        ! Vertical distance from tower-top to TlcdX CM.
-REAL(ReKi)                   :: TlcdYRefxnt                                        ! Downwind distance from tower-top to TlcdY CM.
-REAL(ReKi)                   :: TlcdYRefynt                                        ! Lateral  distance from tower-top to TlcdY CM.
-REAL(ReKi)                   :: TlcdYRefznt                                        ! Vertical distance from tower-top to TlcdY CM.
+REAL(ReKi)                   :: TlcdXRefxnt                                        ! Downwind distance from tower-top to TlcdX hortizontal tube center.
+REAL(ReKi)                   :: TlcdXRefynt                                        ! Lateral  distance from tower-top to TlcdX hortizontal tube center.
+REAL(ReKi)                   :: TlcdXRefznt                                        ! Vertical distance from tower-top to TlcdX hortizontal tube center.
+REAL(ReKi)                   :: TlcdYRefxnt                                        ! Downwind distance from tower-top to TlcdY hortizontal tube center.
+REAL(ReKi)                   :: TlcdYRefynt                                        ! Lateral  distance from tower-top to TlcdY hortizontal tube center.
+REAL(ReKi)                   :: TlcdYRefznt                                        ! Vertical distance from tower-top to TlcdY hortizontal tube center.
 
-REAL(ReKi)                   :: TlcdXSpr                                         ! Initial and current TlcdX spring stiffness.
-REAL(ReKi)                   :: TlcdXDamp                                        ! Initial and current TlcdX damping.
-REAL(ReKi)                   :: TlcdXNeut                                        ! Neutral TlcdX position.
-
-!mal Start of proposed change.  v6.20a-mal  23-July-2009.
-!mal don't need these anymore, going to use force command for active control.
-!remove6.20a  REAL(ReKi)                   :: TlcdXRateNeut = 0.0                              ! Neutral TlcdX rate.
-REAL(ReKi)                   :: TlcdXFext                                        ! Commanded TlcdX external force from user-defined routines, m.
-!mal End of proposed change.  v6.20a-mal  23-July-2009.
+REAL(ReKi)                   :: TlcdXCMRefz                                        ! Vertical distance (constant) from TlcdX ref point (central point in the horizontal tube) to TlcdX mass center with no liquid displacement. 
+REAL(ReKi)                   :: TlcdYCMRefz                                        ! Vertical distance (constant) from TlcdY ref point (central point in the horizontal tube) to TlcdY mass center with no liquid displacement.
 
 
-REAL(ReKi)                   :: TlcdYSpr                                         ! Initial and current TlcdY spring stiffness.
-REAL(ReKi)                   :: TlcdYDamp                                        ! Initial and current TlcdY damping.
-REAL(ReKi)                   :: TlcdYNeut                                        ! Neutral TlcdY position.
+REAL(ReKi)                   :: TlcdDens                                        ! TLCD Liquid density
 
-!mal Start of proposed change.  v6.20a-mal  23-July-2009.
-!mal don't need these anymore, going to use force command for active control.
-!remove6.20a  REAL(ReKi)                   :: TlcdYRateNeut = 0.0                              ! Neutral TlcdY rate.
-REAL(ReKi)                   :: TlcdYFext                                        ! Commanded TlcdY external force from user-defined routines, m.
-!mal End of proposed change.  v6.20a-mal  23-July-2009.
+REAL(ReKi)                   :: TlcdXHorArea                                    ! TlcdX initial or fixed horizontal cross-section area (m^2)
+REAL(ReKi)                   :: TlcdXVerArea                                    ! TlcdX initial or fixed vertical cross-section area (m^2)
+REAL(ReKi)                   :: TlcdXLen                                        ! TlcdX initial or fixed total length (m)
+REAL(ReKi)                   :: TlcdXHorLen                                     ! TlcdX initial or fixed horizontal length (m)
+
+REAL(ReKi)                   :: TlcdYHorArea                                    ! TlcdY initial or fixed horizontal cross-section area (m^2)
+REAL(ReKi)                   :: TlcdYVerArea                                    ! TlcdY initial or fixed vertical cross-section area (m^2)
+REAL(ReKi)                   :: TlcdYLen                                        ! TlcdY initial or fixed total length (m)
+REAL(ReKi)                   :: TlcdYHorLen                                     ! TlcdY initial or fixed horizontal length (m)
+
+!yus Start of proposed change.  v7.01 1-Dec-2014.
+!yus variables for Tlcd mass center 
+REAL(ReKi)                  :: TlcdXCMDx                                       ! TlcdX mass center displacement along  Tlcdnx1 or Tlcdpx1. 
+REAL(ReKi)                  :: TlcdXCMDy                                       ! TlcdX mass center displacement along -Tlcdnx3 or -Tlcdnx3. 
+REAL(ReKi)                  :: TlcdXCMDz                                       ! TlcdX mass center displacement along  Tlcdnx2 or Tlcdnx2. 
+
+REAL(ReKi)                  :: TlcdYCMDx                                       ! TlcdY mass center displacement along  Tlcdny1 or Tlcdpy1. 
+REAL(ReKi)                  :: TlcdYCMDy                                       ! TlcdY mass center displacement along -Tlcdny3 or -Tlcdny3. 
+REAL(ReKi)                  :: TlcdYCMDz                                       ! TlcdY mass center displacement along  Tlcdny2 or Tlcdny2. 
+!yus End of proposed change.  v7.01 1-Dec-2014.
+
+
+
+
+
+REAL(ReKi)                  :: TlcdXLenEE                                      ! TlcdX total length of an equivalent uniform Tlcd with a cross-sectional area A that has same energy as TLCD
+REAL(ReKi)                  :: TlcdXLenEM                                      ! TlcdX total length of an equivalent uniform Tlcd with a cross-sectional area A that has same mass as TLCD
+
+REAL(ReKi)                  :: TlcdYLenEE                                      ! TlcdY total length of an equivalent uniform Tlcd with a cross-sectional area A that has same energy as TLCD
+REAL(ReKi)                  :: TlcdYLenEM                                      ! TlcdY total length of an equivalent uniform Tlcd with a cross-sectional area A that has same mass as TLCD
+
+
+REAL(ReKi)                  :: TlcdXMassRat                                    ! Mass Ratio:   TlcdXHorLen/TlcdXLenME
+REAL(ReKi)                  :: TlcdYMassRat                                    ! Mass Ratio:   TlcdYHorLen/TlcdYLenME
+
+REAL(ReKi)                  :: TlcdXAreaRat                                    ! Area Ratio:   TlcdXVerArea/TlcdXHorArea
+REAL(ReKi)                  :: TlcdYAreaRat                                    ! Area Ratio:   TlcdYVerArea/TlcdYHorArea
+
+
+
+!yus Start of proposed change.  v7.01 1-Dec-2014.
+!yus head loss coefficient for control
+REAL(ReKi)                   :: TlcdXHdLoss                                    ! Commanded TlcdX head-loss coefficient from user-defined routines.
+REAL(ReKi)                   :: TlcdYHdLoss                                    ! Commanded TlcdY  head-loss coefficient from user-defined routines.
+!yus End of proposed change.  v7.01 1-Dec-2014.
 
 !mal Start of proposed change.  v6.30a-mal  29-July-2009.
 !mal add in stop variables
 
 REAL(ReKi)                   :: TlcdXSDamp                                       ! TlcdX stop damping constant. 
 REAL(ReKi)                   :: TlcdXSSpr                                        ! TlcdX stop spring constant. 
-REAL(ReKi)                   :: TlcdXDWSP                                        ! TlcdX stop downwind stop position. 
-REAL(ReKi)                   :: TlcdXUWSP                                        ! TlcdX stop upwind stop position. 
+!REAL(ReKi)                   :: TlcdXDWSP                                        ! TlcdX stop downwind stop position. 
+!REAL(ReKi)                   :: TlcdXUWSP                                        ! TlcdX stop upwind stop position. 
 
 REAL(ReKi)                   :: TlcdYSDamp                                       ! TlcdY stop damping constant. 
 REAL(ReKi)                   :: TlcdYSSpr                                        ! TlcdY stop spring constant. 
-REAL(ReKi)                   :: TlcdYPLSP                                        ! TlcdY stop positive-lateral stop position. 
-REAL(ReKi)                   :: TlcdYNLSP                                        ! TlcdY stop negative-lateral stop position. 
+!REAL(ReKi)                   :: TlcdYPLSP                                        ! TlcdY stop positive-lateral stop position. 
+!REAL(ReKi)                   :: TlcdYNLSP                                        ! TlcdY stop negative-lateral stop position. 
 
 !mal End of proposed change.  v6.30a-mal  29-July-2009.
 
@@ -2650,9 +2623,8 @@ REAL(ReKi)                   :: TlcdYAngle                                      
 
 !mal End of proposed change.  v7.10a-mal  18-July-2012.
 
-
 END MODULE Tlcd
-!mal End of proposed change.  v6.10a-mal  1-Mar-2009.
+!yus End of proposed change.  v7.01  1-Dec-2014.
 
 !=======================================================================
 MODULE Tower
@@ -2889,34 +2861,34 @@ LOGICAL,    ALLOCATABLE      :: BegPitMan(:)                                    
 LOGICAL                      :: GenTiStp                                        ! Stop generator based upon T: time or F: generator power = 0.
 LOGICAL                      :: GenTiStr                                        ! Start generator based upon T: time or F: generator speed.
 
-!mal Start of proposed change.  v6.10a-mal  1-Mar-2009.
-!mal Include control variables for the two TMDs.
-REAL(ReKi)                   :: TmdXSprCom                                      ! Commanded TmdX spring stiffness.
-REAL(ReKi)                   :: TmdXDampCom                                     ! Commanded TmdX damping.
+!yus Start of proposed change.  1-Dec-2014.
+!yus Include control variables for the two TLCDs.
+!REAL(ReKi)                   :: TlcdXSprCom                                      ! Commanded TlcdX spring stiffness.
+!REAL(ReKi)                   :: TlcdXDampCom                                     ! Commanded TlcdX damping.
 
 !mal Start of proposed change.  v6.20a-mal  23-July-2009.
 !mal  remove position and rate commands, instead use force command.
-!remove6.20a  REAL(ReKi)                   :: TmdXPosCom                                      ! Commanded TmdX position from user-defined routines, m.
-!remove6.20a  REAL(ReKi)                   :: TmdXRateCom                                     ! Commanded TmdX rate from user-defined routines, m/s.
-REAL(ReKi)                   :: TmdXFextCom                                      ! Commanded TmdX external force from user-defined routines, m.
+!remove6.20a  REAL(ReKi)                   :: TlcdXPosCom                                      ! Commanded TlcdX position from user-defined routines, m.
+!remove6.20a  REAL(ReKi)                   :: TlcdXRateCom                                     ! Commanded TlcdX rate from user-defined routines, m/s.
+REAL(ReKi)                   :: TlcdXHdLossCom                                      ! Commanded TlcdX head loss coefficient from user-defined routines, m.
 !mal End of proposed change.  v6.20a-mal  23-July-2009.
 
-REAL(ReKi)                   :: TTmdXCOn                                        ! time TMDX control starts
-INTEGER(4)                   :: TmdXCMode                                       ! TmdX control mode
+REAL(ReKi)                   :: TTlcdXCOn                                        ! time TlcdX control starts
+INTEGER(4)                   :: TlcdXCMode                                       ! TlcdX control mode
 
 
-REAL(ReKi)                   :: TmdYSprCom                                      ! Commanded TmdY spring stiffness.
-REAL(ReKi)                   :: TmdYDampCom                                     ! Commanded TmdY damping.
+!REAL(ReKi)                   :: TlcdYSprCom                                      ! Commanded TlcdY spring stiffness.
+!REAL(ReKi)                   :: TlcdYDampCom                                     ! Commanded TlcdY damping.
 
 !mal Start of proposed change.  v6.20a-mal  23-July-2009.
 !mal  remove position and rate commands, instead use force command.
-!remove6.20a  REAL(ReKi)                   :: TmdYPosCom                                      ! Commanded TmdY position from user-defined routines, m.
-!remove6.20a  REAL(ReKi)                   :: TmdYRateCom                                     ! Commanded TmdY rate from user-defined routines, m/s.
-REAL(ReKi)                   :: TmdYFextCom                                      ! Commanded TmdY external force from user-defined routines, m.
+!remove6.20a  REAL(ReKi)                   :: TlcdYPosCom                                      ! Commanded TlcdY position from user-defined routines, m.
+!remove6.20a  REAL(ReKi)                   :: TlcdYRateCom                                     ! Commanded TlcdY rate from user-defined routines, m/s.
+REAL(ReKi)                   :: TlcdYHdLossCom                                      ! Commanded TlcdY head loss coefficient from user-defined routines, m.
 !mal End of proposed change.  v6.20a-mal  23-July-2009.
 
-REAL(ReKi)                   :: TTmdYCOn                                        ! time TMDY control starts
-INTEGER(4)                   :: TmdYCMode                                       ! TmdY control mode
+REAL(ReKi)                   :: TTlcdYCOn                                        ! time TlcdY control starts
+INTEGER(4)                   :: TlcdYCMode                                       ! TlcdY control mode
 
 !mal End of proposed change.  v6.10a-mal  1-Mar-2009.
 
